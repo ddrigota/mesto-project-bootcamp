@@ -2,7 +2,7 @@
   max-width: 880px;
   margin: 0 auto;
   border-block-end: 1px solid rgb(84 84 84 / 0.7);
-  padding: 45px 0 41px;
+  padding: 45px 0 37px;
 }
 
 @media (max-width: 880px) {
@@ -14,6 +14,6 @@
 @media (max-width: 425px) {
   .header {
     padding-block-start: 28px;
-    padding-block-end: 32px;
+    padding-block-end: 28px;
   }
 }

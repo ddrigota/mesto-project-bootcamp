@@ -1,0 +1,12 @@
+.profile__name-container {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-block-end: 8px;
+}
+
+@media (max-width: 425px) {
+  .profile__name-container {
+    gap: 10px;
+  }
+}
