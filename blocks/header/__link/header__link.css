@@ -1,0 +1,7 @@
+.header__link {
+  transition: opacity, var(--transition-time) ease-in;
+}
+
+.header__link:hover {
+  opacity: var(--hover-opacity);
+}

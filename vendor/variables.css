@@ -1,0 +1,7 @@
+:root {
+  --bg-color: #000;
+  --text-color-main: #fff;
+  --text-color-card: #000;
+  --transition-time: 0.3s;
+  --hover-opacity: 0.6;
+}
