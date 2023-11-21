@@ -16,7 +16,7 @@
   opacity: var(--hover-opacity);
 }
 
-@media (max-width: 700px) {
+@media (max-width: 710px) {
   .add-button {
     width: 100%;
   }

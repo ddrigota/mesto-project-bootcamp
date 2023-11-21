@@ -11,7 +11,7 @@
   }
 }
 
-@media (max-width: 425px) {
+@media (max-width: 440px) {
   .header {
     padding-block-start: 28px;
     padding-block-end: 28px;

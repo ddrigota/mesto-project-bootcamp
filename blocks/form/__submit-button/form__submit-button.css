@@ -1,0 +1,30 @@
+.form__submit-button {
+  margin-block-start: 30px;
+  border: none;
+  padding: 16px 0;
+  color: #fff;
+  font-size: 18px;
+  background-color: #000;
+  transition: opacity var(--transition-time) ease;
+  cursor: pointer;
+}
+
+.form__submit-button:focus {
+  outline: none;
+}
+
+.form__submit-button:focus-visible {
+  outline: 1px solid rgb(0 0 0 / 0.5);
+  outline-offset: 5px;
+}
+
+.form__submit-button:hover {
+  opacity: 0.8;
+}
+
+@media (max-width: 440px) {
+  .form__submit-button {
+    font-size: 14px;
+    padding: 14px;
+  }
+}

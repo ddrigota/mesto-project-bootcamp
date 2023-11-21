@@ -1,0 +1,11 @@
+.form__text-input {
+  border: none;
+  border-bottom: 1px solid rgb(0 0 0 / 0.2);
+  padding: 10px 0;
+  font-size: 14px;
+}
+
+.form__text-input:focus {
+  outline: 1px solid rgb(0 0 0 / 0.5);
+  outline-offset: 5px;
+}
