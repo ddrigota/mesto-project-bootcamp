@@ -24,3 +24,20 @@
 @import url('../blocks/profile/__name/profile__name.css');
 @import url('../blocks/profile/__edit-button/profile__edit-button.css');
 @import url('../blocks/profile/__bio/profile__bio.css');
+
+/* POST GRID */
+@import url('../blocks/posts-grid/posts-grid.css');
+@import url('../blocks/posts-grid/__list/posts-grid__list.css');
+@import url('../blocks/posts-grid/__list-item/posts-grid__list-item.css');
+
+/* POST */
+@import url('../blocks/post/post.css');
+@import url('../blocks/post/__image/post__image.css');
+@import url('../blocks/post/__description/post__description.css');
+@import url('../blocks/post/__text/post__text.css');
+@import url('../blocks/post/__like-button/post__like-button.css');
+@import url('../blocks/post/__like-button/_liked/post__like-button_liked.css');
+
+/* FOOTER */
+@import url('../blocks/footer/footer.css');
+@import url('../blocks/footer/__copyright/footer__copyright.css');

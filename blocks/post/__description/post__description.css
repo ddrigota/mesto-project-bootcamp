@@ -1,0 +1,7 @@
+.post__description {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 22px 21px 26px;
+}

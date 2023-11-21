@@ -1,0 +1,9 @@
+.posts-grid {
+  margin: 50px auto 0;
+}
+
+@media (max-width: 710px) {
+  .posts-grid {
+    margin-block-start: 36px;
+  }
+}

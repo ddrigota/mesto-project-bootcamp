@@ -1,0 +1,6 @@
+.post {
+  border-radius: 10px;
+  overflow: hidden;
+  color: var(--text-color-card);
+  background-color: #fff;
+}
