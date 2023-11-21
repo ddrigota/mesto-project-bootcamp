@@ -10,7 +10,7 @@
 }
 
 .post__like-button:hover {
-  opacity: var(--hover-opacity);
+  opacity: 0.5;
 }
 
 .post__like-button:active {

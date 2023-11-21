@@ -1,5 +1,9 @@
 .profile__bio {
+  max-width: 300px;
   margin: 0;
+  overflow: hidden;
   font-weight: 400;
   font-size: clamp(14px, 3vw, 18px);
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

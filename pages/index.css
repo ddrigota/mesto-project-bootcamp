@@ -12,8 +12,6 @@
 
 /* MAIN */
 @import url('../blocks/content/content.css');
-@import url('../blocks/add-button/add-button.css');
-@import url('../blocks/add-button/__icon/add-button__icon.css');
 
 /* PROFILE */
 @import url('../blocks/profile/profile.css');
@@ -24,6 +22,7 @@
 @import url('../blocks/profile/__name/profile__name.css');
 @import url('../blocks/profile/__edit-button/profile__edit-button.css');
 @import url('../blocks/profile/__bio/profile__bio.css');
+@import url('../blocks/profile/__add-button/profile__add-button.css');
 
 /* POST GRID */
 @import url('../blocks/posts-grid/posts-grid.css');
