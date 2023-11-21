@@ -1,14 +1,7 @@
 .header {
-  max-width: 880px;
-  margin: 0 auto;
+  width: 100%;
   border-block-end: 1px solid rgb(84 84 84 / 0.7);
   padding: 45px 0 37px;
-}
-
-@media (max-width: 980px) {
-  .header {
-    padding-inline-start: 27px;
-  }
 }
 
 @media (max-width: 440px) {

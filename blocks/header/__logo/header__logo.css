@@ -3,6 +3,12 @@
   height: 33px;
 }
 
+@media (max-width: 980px) {
+  .header__logo {
+    padding-inline-start: 27px;
+  }
+}
+
 @media (max-width: 440px) {
   .header__logo {
     width: 104px;

@@ -1,4 +1,6 @@
 .page {
+  display: flex;
+  justify-content: center;
   box-sizing: border-box;
   min-width: 320px;
   color: var(--text-color-main);
