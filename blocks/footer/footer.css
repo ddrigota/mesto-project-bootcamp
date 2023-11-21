@@ -1,12 +1,13 @@
 .footer {
   max-width: 880px;
   margin: 7px auto 0;
-  padding: 60px 0;
+  padding: 60px 19px;
 }
 
-@media (max-width: 425px) {
+@media (max-width: 710px) {
   .footer {
     margin-block-start: 12px;
-    padding: 36px 19px;
+    padding-block-start: 36px;
+    padding-block-end: 36px;
   }
 }
