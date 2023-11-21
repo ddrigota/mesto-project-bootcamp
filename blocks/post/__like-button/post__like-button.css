@@ -1,10 +1,12 @@
 .post__like-button {
-  cursor: pointer;
   min-width: 22px;
   min-height: 22px;
+  border: none;
+  padding: 0;
   background: url('../../../images/like-button.svg') no-repeat center;
   transition: opacity var(--transition-time) ease;
   transition: background-image var(--transition-time) ease;
+  cursor: pointer;
 }
 
 .post__like-button:hover {
