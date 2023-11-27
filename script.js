@@ -13,11 +13,25 @@ const editFormElement = popupEditElement.querySelector('.form');
 const usernameInput = popupEditElement.querySelector('#username');
 const bioInput = popupEditElement.querySelector('#bio');
 
-// открыть и закрыть модальное окно
+// грид с постами
+const postsContainerElement = document.querySelector('.posts-grid__list');
+const postTemplate = document.querySelector('#post-template').content;
+
+// элементы создания нового поста
+const addButton = document.querySelector('.profile__add-button');
+const popupAddElement = document.querySelector('#popup-add');
+const popupAddCloseButton = popupAddElement.querySelector(
+  '.popup__close-button'
+);
+const addFormElement = popupAddElement.querySelector('.form');
+const locationInput = popupAddElement.querySelector('#location');
+const linkInput = popupAddElement.querySelector('#link');
+
+// открыть модальное окно
 function openPopup(popupElement) {
   popupElement.classList.add('popup_opened');
 }
-
+// закйрыть модальное окно
 function closePopup(popupElement) {
   popupElement.style.animation = 'fade-out 0.5s forwards';
   setTimeout(() => {
@@ -26,6 +40,7 @@ function closePopup(popupElement) {
   }, 500);
 }
 
+// взаимодействие с формой редактирования профиля
 function handleEditPopup() {
   profileEditButton.addEventListener('click', () => {
     openPopup(popupEditElement);
@@ -46,14 +61,11 @@ function handleEditFormSubmit(evt) {
   displayName.textContent = username;
   displayBio.textContent = bio;
 
-  closeEditPopup();
+  closePopup(popupEditElement);
 }
 
 handleEditPopup();
 editFormElement.addEventListener('submit', handleEditFormSubmit);
-
-const postsContainerElement = document.querySelector('.posts-grid__list');
-const postTemplate = document.querySelector('#post-template').content;
 
 // создание новго поста
 function createPostElement(card) {
@@ -73,6 +85,7 @@ function createPostElement(card) {
   return postElement;
 }
 
+// отрисовка первоначальных постов
 function renderInitialPosts() {
   const initialCards = [
     {
@@ -107,36 +120,9 @@ function renderInitialPosts() {
   }
 }
 
-// обработка лайков, которая потом загружается в функции отрисовки постов
-function handleLike(postElement) {
-  postElement
-    .querySelector('.post__like-button')
-    .addEventListener('click', (evt) => {
-      evt.target.classList.toggle('post__like-button_liked');
-    });
-}
-
-// обработка удаления постов, которая потом загружается в функции отрисовки постов
-function handleDelete(postElement) {
-  postElement
-    .querySelector('.posts-grid__delete-button')
-    .addEventListener('click', (evt) => {
-      evt.target.closest('.posts-grid__list-item').remove();
-    });
-}
-
 renderInitialPosts();
 
 // открытие и закрытие окна "добавить новый пост"
-const addButton = document.querySelector('.profile__add-button');
-const popupAddElement = document.querySelector('#popup-add');
-const popupAddCloseButton = popupAddElement.querySelector(
-  '.popup__close-button'
-);
-const addFormElement = popupAddElement.querySelector('.form');
-const locationInput = popupAddElement.querySelector('#location');
-const linkInput = popupAddElement.querySelector('#link');
-
 function handleAddPopup() {
   addButton.addEventListener('click', () => {
     openPopup(popupAddElement);
@@ -160,3 +146,21 @@ function handleAddFormSubmit(evt) {
 }
 
 addFormElement.addEventListener('submit', handleAddFormSubmit);
+
+// обработка лайков, которая потом загружается в функции отрисовки постов
+function handleLike(postElement) {
+  postElement
+    .querySelector('.post__like-button')
+    .addEventListener('click', (evt) => {
+      evt.target.classList.toggle('post__like-button_liked');
+    });
+}
+
+// обработка удаления постов, которая потом загружается в функции отрисовки постов
+function handleDelete(postElement) {
+  postElement
+    .querySelector('.posts-grid__delete-button')
+    .addEventListener('click', (evt) => {
+      evt.target.closest('.posts-grid__list-item').remove();
+    });
+}
