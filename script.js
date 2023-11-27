@@ -34,6 +34,7 @@ function handleEditFormSubmit(evt) {
   const bio = bioInput.value;
   displayName.textContent = username;
   displayBio.textContent = bio;
+
   toggleEditPopup();
 }
 

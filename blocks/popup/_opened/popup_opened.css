@@ -1,3 +1,13 @@
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .popup_opened {
   display: flex;
+  animation: fade-in var(--transition-time);
 }
