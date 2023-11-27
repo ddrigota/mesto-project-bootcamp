@@ -136,14 +136,13 @@ function handleAddPopup() {
 
 handleAddPopup();
 
+// новый пост
 function handleAddFormSubmit(evt) {
   evt.preventDefault();
   const location = locationInput.value;
   const link = linkInput.value;
   const newPost = { name: location, link: link };
   toggleAddPopup();
-
-  // новый пост
   const postElement = createPostElement(newPost);
   postsContainerElement.append(postElement);
 }
