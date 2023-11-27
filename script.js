@@ -10,7 +10,7 @@ const popupEditCloseButton = popupEditElement.querySelector(
   '.popup__close-button'
 );
 const editFormElement = popupEditElement.querySelector('.form');
-const userlocationInput = popupEditElement.querySelector('#username');
+const usernameInput = popupEditElement.querySelector('#username');
 const bioInput = popupEditElement.querySelector('#bio');
 
 // открыть и закрыть модальное окно
@@ -30,19 +30,19 @@ function handleEditPopup() {
   profileEditButton.addEventListener('click', openEditPopup);
   popupEditCloseButton.addEventListener('click', closeEditPopup);
   // заполнить поля текущими данными
-  userlocationInput.value = displayName.textContent;
+  usernameInput.value = displayName.textContent;
   bioInput.value = displayBio.textContent;
 }
 
 // отправка формы изменения персональных данных
 function handleEditFormSubmit(evt) {
   evt.preventDefault();
-  const username = userlocationInput.value;
+  const username = usernameInput.value;
   const bio = bioInput.value;
   displayName.textContent = username;
   displayBio.textContent = bio;
 
-  openEditPopup();
+  closeEditPopup();
 }
 
 handleEditPopup();
