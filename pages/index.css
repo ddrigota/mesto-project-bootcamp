@@ -29,6 +29,7 @@
 @import url('../blocks/posts-grid/posts-grid.css');
 @import url('../blocks/posts-grid/__list/posts-grid__list.css');
 @import url('../blocks/posts-grid/__list-item/posts-grid__list-item.css');
+@import url('../blocks/posts-grid/__delete-button/posts-grid__delete-button.css');
 
 /* POST */
 @import url('../blocks/post/post.css');

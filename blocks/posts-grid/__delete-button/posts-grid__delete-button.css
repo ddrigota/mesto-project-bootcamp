@@ -1,0 +1,19 @@
+.posts-grid__delete-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  min-width: 19px;
+  min-height: 20px;
+  border: none;
+  padding: 0;
+  background: url('../../../images/delete-button.svg') no-repeat center;
+  transition: opacity var(--transition-time) ease;
+  cursor: pointer;
+}
+.posts-grid__delete-button:hover {
+  opacity: 0.5;
+}
+
+.posts-grid__delete-button:active {
+  opacity: 1;
+}
