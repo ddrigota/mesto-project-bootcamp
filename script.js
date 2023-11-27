@@ -14,21 +14,25 @@ const usernameInput = popupEditElement.querySelector('#username');
 const bioInput = popupEditElement.querySelector('#bio');
 
 // открыть и закрыть модальное окно
-function openEditPopup() {
-  popupEditElement.classList.add('popup_opened');
+function openPopup(popupElement) {
+  popupElement.classList.add('popup_opened');
 }
 
-function closeEditPopup() {
-  popupEditElement.style.animation = 'fade-out 0.5s forwards';
+function closePopup(popupElement) {
+  popupElement.style.animation = 'fade-out 0.5s forwards';
   setTimeout(() => {
-    popupEditElement.classList.remove('popup_opened');
-    popupEditElement.style.animation = '';
+    popupElement.classList.remove('popup_opened');
+    popupElement.style.animation = '';
   }, 500);
 }
 
 function handleEditPopup() {
-  profileEditButton.addEventListener('click', openEditPopup);
-  popupEditCloseButton.addEventListener('click', closeEditPopup);
+  profileEditButton.addEventListener('click', () => {
+    openPopup(popupEditElement);
+  });
+  popupEditCloseButton.addEventListener('click', () => {
+    closePopup(popupEditElement);
+  });
   // заполнить поля текущими данными
   usernameInput.value = displayName.textContent;
   bioInput.value = displayBio.textContent;
@@ -133,13 +137,13 @@ const addFormElement = popupAddElement.querySelector('.form');
 const locationInput = popupAddElement.querySelector('#location');
 const linkInput = popupAddElement.querySelector('#link');
 
-function toggleAddPopup() {
-  popupAddElement.classList.toggle('popup_opened');
-}
-
 function handleAddPopup() {
-  addButton.addEventListener('click', toggleAddPopup);
-  popupAddCloseButton.addEventListener('click', toggleAddPopup);
+  addButton.addEventListener('click', () => {
+    openPopup(popupAddElement);
+  });
+  popupAddCloseButton.addEventListener('click', () => {
+    closePopup(popupAddElement);
+  });
 }
 
 handleAddPopup();
@@ -150,7 +154,7 @@ function handleAddFormSubmit(evt) {
   const location = locationInput.value;
   const link = linkInput.value;
   const newPost = { name: location, link: link };
-  toggleAddPopup();
+  closePopup(popupAddElement);
   const postElement = createPostElement(newPost);
   postsContainerElement.append(postElement);
 }
