@@ -6,9 +6,11 @@ const profileEditButton = document.querySelector('.profile__edit-button');
 
 // Элементы формы редактирования
 const popupEditElement = document.querySelector('#popup-edit');
-const popupCloseButton = popupEditElement.querySelector('.popup__close-button');
-const formElement = popupEditElement.querySelector('.form');
-const nameInput = popupEditElement.querySelector('#name');
+const popupEditCloseButton = popupEditElement.querySelector(
+  '.popup__close-button'
+);
+const editFormElement = popupEditElement.querySelector('.form');
+const userlocationInput = popupEditElement.querySelector('#username');
 const bioInput = popupEditElement.querySelector('#bio');
 
 // открыть и закрыть модальное окно
@@ -18,25 +20,25 @@ function toggleEditPopup() {
 
 function handleEditPopup() {
   profileEditButton.addEventListener('click', toggleEditPopup);
-  popupCloseButton.addEventListener('click', toggleEditPopup);
+  popupEditCloseButton.addEventListener('click', toggleEditPopup);
 
   // заполнить поля текущими данными
-  nameInput.value = displayName.textContent;
+  userlocationInput.value = displayName.textContent;
   bioInput.value = displayBio.textContent;
 }
 
 // отправка формы изменения персональных данных
-function handleFormSubmit(evt) {
+function handleEditFormSubmit(evt) {
   evt.preventDefault();
-  const name = nameInput.value;
+  const username = userlocationInput.value;
   const bio = bioInput.value;
-  displayName.textContent = name;
+  displayName.textContent = username;
   displayBio.textContent = bio;
   toggleEditPopup();
 }
 
 handleEditPopup();
-formElement.addEventListener('submit', handleFormSubmit);
+editFormElement.addEventListener('submit', handleEditFormSubmit);
 
 const postsContainerElement = document.querySelector('.posts-grid__list');
 const postTemplate = document.querySelector('#post-template').content;
@@ -112,3 +114,38 @@ function handleDelete(postElement) {
 }
 
 renderInitialPosts();
+
+// открытие и закрытие окна "добавить новый пост"
+const addButton = document.querySelector('.profile__add-button');
+const popupAddElement = document.querySelector('#popup-add');
+const popupAddCloseButton = popupAddElement.querySelector(
+  '.popup__close-button'
+);
+const addFormElement = popupAddElement.querySelector('.form');
+const locationInput = popupAddElement.querySelector('#location');
+const linkInput = popupAddElement.querySelector('#link');
+
+function toggleAddPopup() {
+  popupAddElement.classList.toggle('popup_opened');
+}
+
+function handleAddPopup() {
+  addButton.addEventListener('click', toggleAddPopup);
+  popupAddCloseButton.addEventListener('click', toggleAddPopup);
+}
+
+handleAddPopup();
+
+function handleAddFormSubmit(evt) {
+  evt.preventDefault();
+  const location = locationInput.value;
+  const link = linkInput.value;
+  const newPost = { name: location, link: link };
+  toggleAddPopup();
+
+  // новый пост
+  const postElement = createPostElement(newPost);
+  postsContainerElement.append(postElement);
+}
+
+addFormElement.addEventListener('submit', handleAddFormSubmit);
