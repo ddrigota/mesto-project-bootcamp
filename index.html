@@ -34,18 +34,7 @@
 
       <section class="posts-grid">
         <ul class="posts-grid__list">
-          <template id="post-template">
-            <li class="posts-grid__list-item">
-              <article class="post">
-                <img src="" alt="" class="post__image">
-                <div class="post__description">
-                  <h2 class="post__text"></h2>
-                  <button class="post__like-button" aria-label="поставить лайк"></button>
-                </div>
-              </article>
-              <button class="posts-grid__delete-button" aria-label="удалить пост"></button>
-            </li>
-          </template>
+
         </ul>
       </section>
     </main>
@@ -76,7 +65,29 @@
         <button class="popup__close-button" aria-label="закрыть окно" type="button"></button>
       </div>
     </div>
+
+    <div class="popup popup_opened" id="popup-image-preview">
+      <div class="popup__image-container">
+        <img class="popup__image" src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg"
+          alt="#">
+        <h2 class="popup__image-description">Вася</h2>
+        <button class="popup__close-button" aria-label="закрыть окно" type="button"></button>
+      </div>
+    </div>
   </div>
+
+  <template id="post-template">
+    <li class="posts-grid__list-item">
+      <article class="post">
+        <img src="" alt="" class="post__image">
+        <div class="post__description">
+          <h2 class="post__text"></h2>
+          <button class="post__like-button" aria-label="поставить лайк"></button>
+        </div>
+      </article>
+      <button class="posts-grid__delete-button" aria-label="удалить пост"></button>
+    </li>
+  </template>
 
   <script src="./script.js"></script>
 
