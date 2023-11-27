@@ -4,7 +4,7 @@ const displayName = profileContainer.querySelector('.profile__name');
 const displayBio = profileContainer.querySelector('.profile__bio');
 const profileEditButton = document.querySelector('.profile__edit-button');
 
-// Элементы формы редактирования профиля
+// Элементы формы
 const popupElement = document.querySelector('.popup');
 const popupCloseButton = popupElement.querySelector('.popup__close-button');
 const formElement = popupElement.querySelector('.form');
@@ -37,3 +37,52 @@ function handleFormSubmit(evt) {
 
 handleEditPopup();
 formElement.addEventListener('submit', handleFormSubmit);
+
+// карточки при загрузке
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
+  },
+];
+
+const postsContainerElement = document.querySelector('.posts-grid__list');
+const postTemplate = document.querySelector('#post-template').content;
+
+function renderInitialPosts() {
+  for (let i = 0; i < initialCards.length; i++) {
+    const postElement = postTemplate
+      .querySelector('.posts-grid__list-item')
+      .cloneNode(true);
+
+    const postImage = postElement.querySelector('.post__image');
+    const postText = postElement.querySelector('.post__text');
+
+    postImage.src = initialCards[i].link;
+    postText.textContent = initialCards[i].name;
+
+    postsContainerElement.append(postElement);
+  }
+}
+
+renderInitialPosts();
