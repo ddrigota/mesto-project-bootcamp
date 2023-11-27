@@ -69,14 +69,6 @@ const initialCards = [
 const postsContainerElement = document.querySelector('.posts-grid__list');
 const postTemplate = document.querySelector('#post-template').content;
 
-function handleLikes(postElement) {
-  postElement
-    .querySelector('.post__like-button')
-    .addEventListener('click', (evt) => {
-      evt.target.classList.toggle('post__like-button_liked');
-    });
-}
-
 function renderInitialPosts() {
   for (let i = 0; i < initialCards.length; i++) {
     const postElement = postTemplate
@@ -88,9 +80,17 @@ function renderInitialPosts() {
 
     postImage.src = initialCards[i].link;
     postText.textContent = initialCards[i].name;
-    handleLikes(postElement);
+    handleLike(postElement);
     postsContainerElement.append(postElement);
   }
+}
+
+function handleLike(postElement) {
+  postElement
+    .querySelector('.post__like-button')
+    .addEventListener('click', (evt) => {
+      evt.target.classList.toggle('post__like-button_liked');
+    });
 }
 
 renderInitialPosts();
