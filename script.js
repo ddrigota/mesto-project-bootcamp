@@ -14,14 +14,21 @@ const userlocationInput = popupEditElement.querySelector('#username');
 const bioInput = popupEditElement.querySelector('#bio');
 
 // открыть и закрыть модальное окно
-function toggleEditPopup() {
-  popupEditElement.classList.toggle('popup_opened');
+function openEditPopup() {
+  popupEditElement.classList.add('popup_opened');
+}
+
+function closeEditPopup() {
+  popupEditElement.style.animation = 'fade-out 0.5s forwards';
+  setTimeout(() => {
+    popupEditElement.classList.remove('popup_opened');
+    popupEditElement.style.animation = '';
+  }, 500);
 }
 
 function handleEditPopup() {
-  profileEditButton.addEventListener('click', toggleEditPopup);
-  popupEditCloseButton.addEventListener('click', toggleEditPopup);
-
+  profileEditButton.addEventListener('click', openEditPopup);
+  popupEditCloseButton.addEventListener('click', closeEditPopup);
   // заполнить поля текущими данными
   userlocationInput.value = displayName.textContent;
   bioInput.value = displayBio.textContent;
@@ -35,7 +42,7 @@ function handleEditFormSubmit(evt) {
   displayName.textContent = username;
   displayBio.textContent = bio;
 
-  toggleEditPopup();
+  openEditPopup();
 }
 
 handleEditPopup();
