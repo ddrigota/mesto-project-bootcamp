@@ -27,6 +27,16 @@ const addFormElement = popupAddElement.querySelector('.form');
 const locationInput = popupAddElement.querySelector('#location');
 const linkInput = popupAddElement.querySelector('#link');
 
+// элементы модального окна с картинкой
+const popupImageElement = document.querySelector('#popup-image-preview');
+const popupImageCloseButton = popupImageElement.querySelector(
+  '.popup__close-button'
+);
+const popupImage = popupImageElement.querySelector('.popup__image');
+const popupImageCaption = popupImageElement.querySelector(
+  '.popup__image-description'
+);
+
 // открыть модальное окно
 function openPopup(popupElement) {
   popupElement.classList.add('popup_opened');
@@ -137,12 +147,11 @@ handleAddPopup();
 // новый пост
 function handleAddFormSubmit(evt) {
   evt.preventDefault();
-  const location = locationInput.value;
-  const link = linkInput.value;
-  const newPost = { name: location, link: link };
+  const newPost = { name: locationInput.value, link: linkInput.value };
   closePopup(popupAddElement);
   const postElement = createPostElement(newPost);
   postsContainerElement.append(postElement);
+  evt.target.reset();
 }
 
 addFormElement.addEventListener('submit', handleAddFormSubmit);
@@ -164,3 +173,23 @@ function handleDelete(postElement) {
       evt.target.closest('.posts-grid__list-item').remove();
     });
 }
+
+//открыть модальное окно с картинкой при нажатии на изображение в посте
+function handleImagePopup() {
+  postsContainerElement.addEventListener('click', (evt) => {
+    if (evt.target.classList.contains('post__image')) {
+      const image = evt.target;
+      const imageCaption = image
+        .closest('.posts-grid__list-item')
+        .querySelector('.post__text').textContent;
+      popupImage.src = image.src;
+      popupImageCaption.textContent = imageCaption;
+      openPopup(popupImageElement);
+    }
+  });
+  popupImageCloseButton.addEventListener('click', () => {
+    closePopup(popupImageElement);
+  });
+}
+
+handleImagePopup();
