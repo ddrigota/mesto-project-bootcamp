@@ -6,9 +6,7 @@ const profileEditButton = document.querySelector('.profile__edit-button');
 
 // Элементы формы редактирования
 const popupEditElement = document.querySelector('#popup-edit');
-const popupEditCloseButton = popupEditElement.querySelector(
-  '.popup__close-button'
-);
+
 const editFormElement = popupEditElement.querySelector('.form');
 const usernameInput = popupEditElement.querySelector('#username');
 const bioInput = popupEditElement.querySelector('#bio');
@@ -20,28 +18,26 @@ const postTemplate = document.querySelector('#post-template').content;
 // элементы создания нового поста
 const addButton = document.querySelector('.profile__add-button');
 const popupAddElement = document.querySelector('#popup-add');
-const popupAddCloseButton = popupAddElement.querySelector(
-  '.popup__close-button'
-);
+
 const addFormElement = popupAddElement.querySelector('.form');
 const locationInput = popupAddElement.querySelector('#location');
 const linkInput = popupAddElement.querySelector('#link');
 
 // элементы модального окна с картинкой
 const popupImageElement = document.querySelector('#popup-image-preview');
-const popupImageCloseButton = popupImageElement.querySelector(
-  '.popup__close-button'
-);
+
 const popupImage = popupImageElement.querySelector('.popup__image');
 const popupImageCaption = popupImageElement.querySelector(
   '.popup__image-description'
 );
+// кнопки закрытия попапов
+const closeButtons = document.querySelectorAll('.popup__close-button');
 
 // открыть модальное окно
 function openPopup(popupElement) {
   popupElement.classList.add('popup_opened');
 }
-// закйрыть модальное окно
+// закрыть модальное окно
 function closePopup(popupElement) {
   popupElement.style.animation = 'fade-out 0.5s forwards';
   setTimeout(() => {
@@ -50,17 +46,20 @@ function closePopup(popupElement) {
   }, 500);
 }
 
+// Обработка закрытия по крестику
+closeButtons.forEach((button) => {
+  const popup = button.closest('.popup');
+  button.addEventListener('click', () => closePopup(popup));
+});
+
 // взаимодействие с формой редактирования профиля
 function handleEditPopup() {
   profileEditButton.addEventListener('click', () => {
     openPopup(popupEditElement);
+    // заполнить поля текущими данными
+    usernameInput.value = displayName.textContent;
+    bioInput.value = displayBio.textContent;
   });
-  popupEditCloseButton.addEventListener('click', () => {
-    closePopup(popupEditElement);
-  });
-  // заполнить поля текущими данными
-  usernameInput.value = displayName.textContent;
-  bioInput.value = displayBio.textContent;
 }
 
 // отправка формы изменения персональных данных
@@ -87,6 +86,7 @@ function createPostElement(card) {
   const postText = postElement.querySelector('.post__text');
 
   postImage.src = card.link;
+  postImage.alt = card.name;
   postText.textContent = card.name;
 
   handleLike(postElement);
@@ -137,9 +137,6 @@ function handleAddPopup() {
   addButton.addEventListener('click', () => {
     openPopup(popupAddElement);
   });
-  popupAddCloseButton.addEventListener('click', () => {
-    closePopup(popupAddElement);
-  });
 }
 
 handleAddPopup();
@@ -150,7 +147,7 @@ function handleAddFormSubmit(evt) {
   const newPost = { name: locationInput.value, link: linkInput.value };
   closePopup(popupAddElement);
   const postElement = createPostElement(newPost);
-  postsContainerElement.append(postElement);
+  postsContainerElement.prepend(postElement);
   evt.target.reset();
 }
 
@@ -183,12 +180,10 @@ function handleImagePopup() {
         .closest('.posts-grid__list-item')
         .querySelector('.post__text').textContent;
       popupImage.src = image.src;
+      popupImage.alt = imageCaption;
       popupImageCaption.textContent = imageCaption;
       openPopup(popupImageElement);
     }
-  });
-  popupImageCloseButton.addEventListener('click', () => {
-    closePopup(popupImageElement);
   });
 }
 
