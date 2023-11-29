@@ -39,11 +39,7 @@ function openPopup(popupElement) {
 }
 // закрыть модальное окно
 function closePopup(popupElement) {
-  popupElement.style.animation = 'fade-out 0.5s forwards';
-  setTimeout(() => {
-    popupElement.classList.remove('popup_opened');
-    popupElement.style.animation = '';
-  }, 500);
+  popupElement.classList.remove('popup_opened');
 }
 
 // Обработка закрытия по крестику
