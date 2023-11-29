@@ -124,10 +124,10 @@ function renderInitialPosts() {
     },
   ];
 
-  for (let i = 0; i < initialCards.length; i++) {
-    const postElement = createPostElement(initialCards[i]);
+  initialCards.forEach((card) => {
+    const postElement = createPostElement(card);
     postsContainerElement.append(postElement);
-  }
+  });
 }
 
 renderInitialPosts();
