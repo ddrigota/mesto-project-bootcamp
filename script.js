@@ -24,13 +24,10 @@ const linkInput = popupAddElement.querySelector('#link');
 
 // элементы модального окна с картинкой
 const popupImageElement = document.querySelector('#popup-image-preview');
-
 const popupImage = popupImageElement.querySelector('.popup__image');
 const popupImageCaption = popupImageElement.querySelector(
   '.popup__image-description'
 );
-// кнопки закрытия попапов
-const closeButtons = document.querySelectorAll('.popup__close-button');
 
 // открыть модальное окно
 function openPopup(popupElement) {
@@ -41,11 +38,27 @@ function closePopup(popupElement) {
   popupElement.classList.remove('popup_opened');
 }
 
-// Обработка закрытия по крестику
-closeButtons.forEach((button) => {
-  const popup = button.closest('.popup');
-  button.addEventListener('click', () => closePopup(popup));
-});
+// закрыть модальное окно по клику на оверлей или на кнопку закрытия
+function handlePopupsMouse(evt) {
+  const currentPopupElement = document.querySelector('.popup_opened');
+  if (
+    evt.target.classList.contains('popup') ||
+    evt.target.classList.contains('popup__close-button')
+  ) {
+    closePopup(currentPopupElement);
+  }
+}
+
+// закрыть модальное окно по нажатию на Esc
+function handlePopupsEsc(evt) {
+  if (evt.key === 'Escape') {
+    const currentPopupElement = document.querySelector('.popup_opened');
+    closePopup(currentPopupElement);
+  }
+}
+
+document.addEventListener('click', handlePopupsMouse);
+document.addEventListener('keydown', handlePopupsEsc);
 
 // взаимодействие с формой редактирования профиля
 function handleEditPopup() {
