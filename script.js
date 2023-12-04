@@ -84,9 +84,6 @@ function createPostElement(card) {
   postImage.alt = card.name;
   postText.textContent = card.name;
 
-  handleLike(postElement);
-  handleDelete(postElement);
-
   return postElement;
 }
 
@@ -148,24 +145,6 @@ function handleAddFormSubmit(evt) {
 
 addFormElement.addEventListener('submit', handleAddFormSubmit);
 
-// обработка лайков, которая потом загружается в функции отрисовки постов
-function handleLike(postElement) {
-  postElement
-    .querySelector('.post__like-button')
-    .addEventListener('click', (evt) => {
-      evt.target.classList.toggle('post__like-button_liked');
-    });
-}
-
-// обработка удаления постов, которая потом загружается в функции отрисовки постов
-function handleDelete(postElement) {
-  postElement
-    .querySelector('.posts-grid__delete-button')
-    .addEventListener('click', (evt) => {
-      evt.target.closest('.posts-grid__list-item').remove();
-    });
-}
-
 //открыть модальное окно с картинкой при нажатии на изображение в посте
 function handleImagePopup() {
   postsContainerElement.addEventListener('click', (evt) => {
@@ -183,3 +162,16 @@ function handleImagePopup() {
 }
 
 handleImagePopup();
+
+// лайки и удаление постов
+postsContainerElement.addEventListener('click', (evt) => {
+  if (evt.target.classList.contains('post__like-button')) {
+    evt.target.classList.toggle('post__like-button_liked');
+  }
+});
+
+postsContainerElement.addEventListener('click', (evt) => {
+  if (evt.target.classList.contains('posts-grid__delete-button')) {
+    evt.target.closest('.posts-grid__list-item').remove();
+  }
+});
