@@ -6,9 +6,9 @@ const profileEditButton = document.querySelector('.profile__edit-button');
 
 // Элементы формы редактирования
 const popupEditElement = document.querySelector('#popup-edit');
-const editFormElement = popupEditElement.querySelector('.form');
-const usernameInput = popupEditElement.querySelector('#username');
-const bioInput = popupEditElement.querySelector('#bio');
+const editForm = document.forms.userinfo;
+const username = editForm.elements.username;
+const bio = editForm.elements.bio;
 
 // грид с постами
 const postsContainerElement = document.querySelector('.posts-grid__list');
@@ -18,9 +18,9 @@ const postTemplate = document.querySelector('#post-template').content;
 const addButton = document.querySelector('.profile__add-button');
 const popupAddElement = document.querySelector('#popup-add');
 
-const addFormElement = popupAddElement.querySelector('.form');
-const locationInput = popupAddElement.querySelector('#location');
-const linkInput = popupAddElement.querySelector('#link');
+const addForm = document.forms.newpost;
+const caption = addForm.elements.caption;
+const link = addForm.elements.link;
 
 // элементы модального окна с картинкой
 const popupImageElement = document.querySelector('#popup-image-preview');
@@ -65,24 +65,23 @@ function handleEditPopup() {
   profileEditButton.addEventListener('click', () => {
     openPopup(popupEditElement);
     // заполнить поля текущими данными
-    usernameInput.value = displayName.textContent;
-    bioInput.value = displayBio.textContent;
+    username.value = displayName.textContent;
+    bio.value = displayBio.textContent;
   });
 }
 
 // отправка формы изменения персональных данных
 function handleEditFormSubmit(evt) {
   evt.preventDefault();
-  const username = usernameInput.value;
-  const bio = bioInput.value;
-  displayName.textContent = username;
-  displayBio.textContent = bio;
+
+  displayName.textContent = username.value;
+  displayBio.textContent = bio.value;
 
   closePopup(popupEditElement);
 }
 
 handleEditPopup();
-editFormElement.addEventListener('submit', handleEditFormSubmit);
+editForm.addEventListener('submit', handleEditFormSubmit);
 
 // создание новго поста
 function createPostElement(card) {
@@ -149,14 +148,14 @@ handleAddPopup();
 // новый пост
 function handleAddFormSubmit(evt) {
   evt.preventDefault();
-  const newPost = { name: locationInput.value, link: linkInput.value };
+  const newPost = { name: caption.value, link: link.value };
   closePopup(popupAddElement);
   const postElement = createPostElement(newPost);
   postsContainerElement.prepend(postElement);
   evt.target.reset();
 }
 
-addFormElement.addEventListener('submit', handleAddFormSubmit);
+addForm.addEventListener('submit', handleAddFormSubmit);
 
 //открыть модальное окно с картинкой при нажатии на изображение в посте
 function handleImagePopup() {
