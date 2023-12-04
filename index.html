@@ -45,7 +45,7 @@
     <div class="popup" id="popup-edit">
       <div class="popup__modal">
         <h2 class="popup__heading">Редактировать профиль</h2>
-        <form class="form" method="post">
+        <form name="userinfo" class="form" method="post">
           <input type="text" name="username" id="username" required placeholder="Ваше имя" class="form__text-input">
           <input type="text" name="bio" id="bio" required placeholder="Коротко о вас" class="form__text-input">
           <button type="submit" class="form__submit-button">Сохранить</button>
@@ -57,7 +57,7 @@
     <div class="popup" id="popup-add">
       <div class="popup__modal">
         <h2 class="popup__heading">Новое место</h2>
-        <form class="form" method="post">
+        <form name="newpost" class="form" method="post">
           <input type="text" name="location" id="location" required placeholder="Название" class="form__text-input">
           <input type="url" name="link" id="link" required placeholder="Ссылка на картинку" class="form__text-input">
           <button type="submit" class="form__submit-button">Сохранить</button>
