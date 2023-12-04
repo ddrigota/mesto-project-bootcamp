@@ -6,7 +6,6 @@ const profileEditButton = document.querySelector('.profile__edit-button');
 
 // Элементы формы редактирования
 const popupEditElement = document.querySelector('#popup-edit');
-
 const editFormElement = popupEditElement.querySelector('.form');
 const usernameInput = popupEditElement.querySelector('#username');
 const bioInput = popupEditElement.querySelector('#bio');
