@@ -155,34 +155,24 @@ function handleAddFormSubmit(evt) {
 
 addForm.addEventListener('submit', handleAddFormSubmit);
 
-//открыть модальное окно с картинкой при нажатии на изображение в посте
-function handleImagePopup() {
-  postsContainerElement.addEventListener('click', (evt) => {
-    if (evt.target.classList.contains('post__image')) {
-      const image = evt.target;
-      const imageCaption = image
-        .closest('.posts-grid__list-item')
-        .querySelector('.post__text').textContent;
-      popupImage.src = image.src;
-      popupImage.alt = imageCaption;
-      popupImageCaption.textContent = imageCaption;
-      openPopup(popupImageElement);
-    }
-  });
-}
-
-handleImagePopup();
-
-// лайки и удаление постов
+// лайки, удаление поста, превью картинки -- делегирование
 postsContainerElement.addEventListener('click', (evt) => {
   if (evt.target.classList.contains('post__like-button')) {
+    // лайки
     evt.target.classList.toggle('post__like-button_liked');
-  }
-});
-
-postsContainerElement.addEventListener('click', (evt) => {
-  if (evt.target.classList.contains('posts-grid__delete-button')) {
+  } else if (evt.target.classList.contains('posts-grid__delete-button')) {
+    // удаление поста
     evt.target.closest('.posts-grid__list-item').remove();
+  } else if (evt.target.classList.contains('post__image')) {
+    // превью картинки
+    const image = evt.target;
+    const imageCaption = image
+      .closest('.posts-grid__list-item')
+      .querySelector('.post__text').textContent;
+    popupImage.src = image.src;
+    popupImage.alt = imageCaption;
+    popupImageCaption.textContent = imageCaption;
+    openPopup(popupImageElement);
   }
 });
 
@@ -207,13 +197,30 @@ function validateFormInput(formElement, inputElement) {
   }
 }
 
+function hasInvalidInput(inputList) {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  });
+}
+
+function toggleButtonState(inputList, buttonElement) {
+  if (hasInvalidInput(inputList)) {
+    buttonElement.classList.add('form__submit-button_disabled');
+  } else {
+    buttonElement.classList.remove('form__submit-button_disabled');
+  }
+}
+
 function setEventListeners(formElement) {
   const inputList = Array.from(
     formElement.querySelectorAll('.form__text-input')
   );
+  const buttonElement = formElement.querySelector('.form__submit-button');
+  toggleButtonState(inputList, buttonElement);
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', () => {
       validateFormInput(formElement, inputElement);
+      toggleButtonState(inputList, buttonElement);
     });
   });
 }
