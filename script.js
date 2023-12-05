@@ -39,7 +39,7 @@ function closePopup(popupElement) {
 }
 
 // закрыть модальное окно по клику на оверлей или на кнопку закрытия
-function handlePopupsMouse(evt) {
+function handlePopupClick(evt) {
   const currentPopupElement = document.querySelector('.popup_opened');
   if (
     evt.target.classList.contains('popup') ||
@@ -50,15 +50,15 @@ function handlePopupsMouse(evt) {
 }
 
 // закрыть модальное окно по нажатию на Esc
-function handlePopupsEsc(evt) {
+function handlePopupEsc(evt) {
   if (evt.key === 'Escape') {
     const currentPopupElement = document.querySelector('.popup_opened');
     closePopup(currentPopupElement);
   }
 }
 
-document.addEventListener('click', handlePopupsMouse);
-document.addEventListener('keydown', handlePopupsEsc);
+document.addEventListener('click', handlePopupClick);
+document.addEventListener('keydown', handlePopupEsc);
 
 // взаимодействие с формой редактирования профиля
 function handleEditPopup() {
@@ -187,8 +187,6 @@ postsContainerElement.addEventListener('click', (evt) => {
 });
 
 // валидация форм
-const forms = Array.from(document.forms);
-
 function showInputError(formElement, inputElement, errorMessage) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.add('form__text-input_error');
@@ -201,7 +199,7 @@ function hideInputError(formElement, inputElement) {
   errorElement.textContent = '';
 }
 
-function isValid(formElement, inputElement) {
+function validateFormInput(formElement, inputElement) {
   if (!inputElement.validity.valid) {
     showInputError(formElement, inputElement, inputElement.validationMessage);
   } else {
@@ -215,7 +213,7 @@ function setEventListeners(formElement) {
   );
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', () => {
-      isValid(formElement, inputElement);
+      validateFormInput(formElement, inputElement);
     });
   });
 }
