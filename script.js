@@ -73,15 +73,34 @@ function handleEditPopup() {
 // отправка формы изменения персональных данных
 function handleEditFormSubmit(evt) {
   evt.preventDefault();
-
   displayName.textContent = username.value;
   displayBio.textContent = bio.value;
-
   closePopup(popupEditElement);
 }
 
+// function isEditFormValid(evt) {
+//   isValid =
+//     username.value.length > 2 &&
+//     bio.value.length > 2 &&
+//     username.value.length < 40 &&
+//     bio.value.length < 200;
+//   setSubmitButtonState(isValid);
+// }
+
+// function setSubmitButtonState(isEditFormValid) {
+//   const editSubmitButton = editForm.querySelector('.form__submit-button');
+//   if (isEditFormValid) {
+//     editSubmitButton.removeAttribute('disabled');
+//     editSubmitButton.classList.remove('form__submit-button_disabled');
+//   } else {
+//     editSubmitButton.setAttribute('disabled', true);
+//     editSubmitButton.classList.add('form__submit-button_disabled');
+//   }
+// }
+
 handleEditPopup();
 editForm.addEventListener('submit', handleEditFormSubmit);
+// editForm.addEventListener('input', isEditFormValid);
 
 // создание новго поста
 function createPostElement(card) {
