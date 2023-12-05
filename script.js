@@ -185,3 +185,46 @@ postsContainerElement.addEventListener('click', (evt) => {
     evt.target.closest('.posts-grid__list-item').remove();
   }
 });
+
+// валидация форм
+const forms = Array.from(document.forms);
+
+function showInputError(formElement, inputElement, errorMessage) {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.add('form__text-input_error');
+  errorElement.textContent = errorMessage;
+}
+
+function hideInputError(formElement, inputElement) {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.remove('form__text-input_error');
+  errorElement.textContent = '';
+}
+
+function isValid(formElement, inputElement) {
+  if (!inputElement.validity.valid) {
+    showInputError(formElement, inputElement, inputElement.validationMessage);
+  } else {
+    hideInputError(formElement, inputElement);
+  }
+}
+
+function setEventListeners(formElement) {
+  const inputList = Array.from(
+    formElement.querySelectorAll('.form__text-input')
+  );
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener('input', () => {
+      isValid(formElement, inputElement);
+    });
+  });
+}
+
+function enableValidation() {
+  const forms = Array.from(document.forms);
+  forms.forEach((formElement) => {
+    setEventListeners(formElement);
+  });
+}
+
+enableValidation();
