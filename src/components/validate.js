@@ -29,6 +29,7 @@ function validateFormInput(formElement, inputElement, inputErrorClass) {
   }
 }
 
+// TODO: переписать под checkValidity
 function hasInvalidInput(inputList) {
   return inputList.some((inputElement) => {
     return !inputElement.validity.valid;
