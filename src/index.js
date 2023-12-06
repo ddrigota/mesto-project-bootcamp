@@ -26,7 +26,13 @@ import { enableValidation } from './components/validate.js';
 handleEditPopup(); // взаимодействие с формой редактирования профиля
 handleAddPopup(); // взаимодействие с формой добавления нового поста
 renderInitialPosts(); // отрисовка первоначальных постов
-enableValidation(); // включить валидацию форм
+enableValidation({
+  formSelector: '.form',
+  inputSelector: '.form__text-input',
+  submitButtonSelector: '.form__submit-button',
+  inactiveButtonClass: 'form__submit-button_disabled',
+  inputErrorClass: 'form__error-message',
+}); // включить валидацию форм
 
 // EVENT LISTENERS
 document.addEventListener('click', handlePopupClick); // закрыть модальное окно по клику на оверлей или на кнопку закрытия
