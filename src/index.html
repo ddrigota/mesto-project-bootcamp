@@ -5,21 +5,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mesto</title>
-  <link rel="stylesheet" href="./pages/index.css">
 </head>
 
 <body class="page">
   <div class="page__container">
     <header class="header">
       <a href="#" class="header__link">
-        <img src="./images/logo.svg" alt="логотип место" class="header__logo">
+        <img src="<%=require('./images/logo.svg')%>" alt="логотип место" class="header__logo">
       </a>
     </header>
 
     <main class="content">
       <section class="profile">
         <div class="profile__info">
-          <img src="./images/profile-pic.png" alt="аватар пользователя" class="profile__avatar">
+          <img src="<%=require('./images/profile-pic.png')%>" alt="аватар пользователя" class="profile__avatar">
           <div class="profile__text">
             <div class="profile__name-container">
               <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -75,8 +74,7 @@
 
     <div class="popup" id="popup-image-preview">
       <div class="popup__image-container">
-        <img class="popup__image" src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg"
-          alt="#">
+        <img class="popup__image" src="" alt="#">
         <p class="popup__image-description">Вася</p>
         <button class="popup__close-button" aria-label="закрыть окно" type="button"></button>
       </div>
@@ -95,8 +93,6 @@
       <button class="posts-grid__delete-button" aria-label="удалить пост"></button>
     </li>
   </template>
-
-  <script src="./script.js"></script>
 
 </body>
 
