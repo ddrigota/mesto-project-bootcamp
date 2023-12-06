@@ -35,10 +35,14 @@ function hasInvalidInput(inputList) {
   });
 }
 
+function disableButton(buttonElement, inactiveButtonClass) {
+  buttonElement.classList.add(inactiveButtonClass);
+  buttonElement.setAttribute('disabled', true);
+}
+
 function toggleButtonState(inputList, buttonElement, inactiveButtonClass) {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(inactiveButtonClass);
-    buttonElement.setAttribute('disabled', true);
+    disableButton(buttonElement, inactiveButtonClass);
   } else {
     buttonElement.classList.remove(inactiveButtonClass);
     buttonElement.removeAttribute('disabled');
@@ -55,6 +59,10 @@ function setEventListeners(
   const inputList = Array.from(formElement.querySelectorAll(inputSelector));
   const buttonElement = formElement.querySelector(submitButtonSelector);
   toggleButtonState(inputList, buttonElement, inactiveButtonClass);
+  // сброс ошибок при открытии формы
+  formElement.addEventListener('reset', () =>
+    disableButton(buttonElement, inactiveButtonClass)
+  );
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', () => {
       validateFormInput(formElement, inputElement, inputErrorClass);
