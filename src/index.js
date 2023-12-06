@@ -1,10 +1,6 @@
 import './pages/index.css';
 
-import {
-  addForm,
-  editForm,
-  postsContainerElement,
-} from './components/constants.js';
+import { addForm, editForm } from './components/constants.js';
 
 import {
   handleEditPopup,
@@ -12,11 +8,7 @@ import {
   handleAddPopup,
 } from './components/modal.js';
 
-import {
-  renderInitialPosts,
-  handleAddFormSubmit,
-  handlePostEvents,
-} from './components/card.js';
+import { renderInitialPosts, handleAddFormSubmit } from './components/card.js';
 
 import { enableValidation } from './components/validate.js';
 
@@ -35,4 +27,3 @@ renderInitialPosts(); // отрисовка первоначальных пос�
 // EVENT LISTENERS
 addForm.addEventListener('submit', handleAddFormSubmit); // отправка формы добавления нового поста
 editForm.addEventListener('submit', handleEditFormSubmit); // отправка формы изменения персональных данных
-postsContainerElement.addEventListener('click', handlePostEvents); // взаимодействие с постом

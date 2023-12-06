@@ -23,7 +23,7 @@ function createPostElement(card) {
   postImage.src = card.link;
   postImage.alt = card.name;
   postText.textContent = card.name;
-
+  postElement.addEventListener('click', handlePostEvents);
   return postElement;
 }
 
@@ -94,4 +94,4 @@ function handlePostEvents(evt) {
   }
 }
 
-export { renderInitialPosts, handleAddFormSubmit, handlePostEvents };
+export { renderInitialPosts, handleAddFormSubmit };
