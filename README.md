@@ -12,13 +12,13 @@
 
 ### Технологии
 
-- HTML
-- CSS
-- Vanilla JS
+- HTML5
+- CSS (flex, grid, adaptive layout)
+- BEM
+- JavaScript
 - Webpack
 - Babel
 - PostCSS
 
 **Ссылки**
-
-- [Ссылка github pages](https://ddrigota.github.io/)
+TBA
