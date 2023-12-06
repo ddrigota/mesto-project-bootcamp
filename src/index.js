@@ -31,7 +31,7 @@ enableValidation({
   inputSelector: '.form__text-input',
   submitButtonSelector: '.form__submit-button',
   inactiveButtonClass: 'form__submit-button_disabled',
-  inputErrorClass: 'form__error-message',
+  inputErrorClass: 'form__text-input_error',
 }); // включить валидацию форм
 
 // EVENT LISTENERS
