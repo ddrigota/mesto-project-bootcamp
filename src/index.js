@@ -23,9 +23,6 @@ import {
 import { enableValidation } from './components/validate.js';
 
 // ИНИЦИАЛИЗАЦИЯ
-handleEditPopup(); // взаимодействие с формой редактирования профиля
-handleAddPopup(); // взаимодействие с формой добавления нового поста
-renderInitialPosts(); // отрисовка первоначальных постов
 enableValidation({
   formSelector: '.form',
   inputSelector: '.form__text-input',
@@ -33,6 +30,9 @@ enableValidation({
   inactiveButtonClass: 'form__submit-button_disabled',
   inputErrorClass: 'form__text-input_error',
 }); // включить валидацию форм
+handleEditPopup(); // взаимодействие с формой редактирования профиля
+handleAddPopup(); // взаимодействие с формой добавления нового поста
+renderInitialPosts(); // отрисовка первоначальных постов
 
 // EVENT LISTENERS
 document.addEventListener('click', handlePopupClick); // закрыть модальное окно по клику на оверлей или на кнопку закрытия
