@@ -12,7 +12,7 @@ import {
 import { openPopup, closePopup } from './utils.js';
 
 // закрыть модальное окно по клику на оверлей или на кнопку закрытия
-export function handlePopupClick(evt) {
+function handlePopupClick(evt) {
   const currentPopupElement = document.querySelector('.popup_opened');
   if (
     evt.target.classList.contains('popup') ||
@@ -23,7 +23,7 @@ export function handlePopupClick(evt) {
 }
 
 // закрыть модальное окно по нажатию на Esc
-export function handlePopupEsc(evt) {
+function handlePopupEsc(evt) {
   if (evt.key === 'Escape') {
     const currentPopupElement = document.querySelector('.popup_opened');
     closePopup(currentPopupElement);
@@ -31,7 +31,7 @@ export function handlePopupEsc(evt) {
 }
 
 // взаимодействие с формой редактирования профиля
-export function handleEditPopup() {
+function handleEditPopup() {
   profileEditButton.addEventListener('click', () => {
     openPopup(popupEditElement);
     // заполнить поля текущими данными
@@ -41,7 +41,7 @@ export function handleEditPopup() {
 }
 
 // отправка формы изменения персональных данных
-export function handleEditFormSubmit(evt) {
+function handleEditFormSubmit(evt) {
   evt.preventDefault();
   displayName.textContent = username.value;
   displayBio.textContent = bio.value;
@@ -49,8 +49,16 @@ export function handleEditFormSubmit(evt) {
 }
 
 // открытие и закрытие окна "добавить новый пост"
-export function handleAddPopup() {
+function handleAddPopup() {
   addButton.addEventListener('click', () => {
     openPopup(popupAddElement);
   });
 }
+
+export {
+  handlePopupClick,
+  handlePopupEsc,
+  handleEditPopup,
+  handleEditFormSubmit,
+  handleAddPopup,
+};

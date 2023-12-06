@@ -12,7 +12,7 @@ import {
 import { openPopup, closePopup } from './utils.js';
 
 // создание новго поста
-export function createPostElement(card) {
+function createPostElement(card) {
   const postElement = postTemplate
     .querySelector('.posts-grid__list-item')
     .cloneNode(true);
@@ -28,7 +28,7 @@ export function createPostElement(card) {
 }
 
 // отрисовка первоначальных постов
-export function renderInitialPosts() {
+function renderInitialPosts() {
   const initialCards = [
     {
       name: 'Архыз',
@@ -63,7 +63,7 @@ export function renderInitialPosts() {
 }
 
 // новый пост
-export function handleAddFormSubmit(evt) {
+function handleAddFormSubmit(evt) {
   evt.preventDefault();
   const newPost = { name: caption.value, link: link.value };
   closePopup(popupAddElement);
@@ -74,7 +74,7 @@ export function handleAddFormSubmit(evt) {
 
 // превью, лайки и удаление поста
 
-export function handlePostEvents(evt) {
+function handlePostEvents(evt) {
   if (evt.target.classList.contains('post__like-button')) {
     // лайки
     evt.target.classList.toggle('post__like-button_liked');
@@ -93,3 +93,5 @@ export function handlePostEvents(evt) {
     openPopup(popupImageElement);
   }
 }
+
+export { renderInitialPosts, handleAddFormSubmit, handlePostEvents };
