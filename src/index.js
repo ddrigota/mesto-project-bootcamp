@@ -7,8 +7,6 @@ import {
 } from './components/constants.js';
 
 import {
-  handlePopupClick,
-  handlePopupEsc,
   handleEditPopup,
   handleEditFormSubmit,
   handleAddPopup,
@@ -35,8 +33,6 @@ handleAddPopup(); // взаимодействие с формой добавле
 renderInitialPosts(); // отрисовка первоначальных постов
 
 // EVENT LISTENERS
-document.addEventListener('click', handlePopupClick); // закрыть модальное окно по клику на оверлей или на кнопку закрытия
-document.addEventListener('keydown', handlePopupEsc); // закрыть модальное окно по нажатию на Esc
 addForm.addEventListener('submit', handleAddFormSubmit); // отправка формы добавления нового поста
 editForm.addEventListener('submit', handleEditFormSubmit); // отправка формы изменения персональных данных
 postsContainerElement.addEventListener('click', handlePostEvents); // взаимодействие с постом
