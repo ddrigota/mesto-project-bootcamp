@@ -24,6 +24,7 @@ export function openPopup(popupElement) {
   document.addEventListener('click', handlePopupClick); // закрыть модальное окно по клику на оверлей или на кнопку закрытия
 }
 
+// TODO: разобраться с ошибками валидации при открытии окна
 // закрыть модальное окно
 export function closePopup(popupElement) {
   popupElement.classList.remove('popup_opened');
@@ -31,5 +32,11 @@ export function closePopup(popupElement) {
   document.removeEventListener('click', handlePopupClick); // закрыть модальное окно по клику на оверлей или на кнопку закрытия
   if (popupElement.id === 'popup-add' || popupElement.id === 'popup-edit') {
     popupElement.querySelector('.form').reset();
+    // popupElement
+    //   .querySelector('.username-error')
+    //   .classList.remove('form__error-message_visible');
+    // popupElement
+    //   .querySelector('.bio-error')
+    //   .classList.remove('form__error-message_visible');
   }
 }
