@@ -5,6 +5,7 @@
   color: red;
   font-size: 12px;
   max-width: 350px;
+  visibility: hidden;
 }
 
 @media (max-width: 440px) {

@@ -3,37 +3,44 @@ function showInputError(
   formElement,
   inputElement,
   errorMessage,
-  inputErrorClass
+  inputErrorClass,
+  errorClass
 ) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.add(inputErrorClass);
+  errorElement.classList.add(errorClass);
   errorElement.textContent = errorMessage;
 }
 
-function hideInputError(formElement, inputElement, inputErrorClass) {
+function hideInputError(
+  formElement,
+  inputElement,
+  inputErrorClass,
+  errorClass
+) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.remove(inputErrorClass);
+  errorElement.classList.remove(errorClass);
   errorElement.textContent = '';
 }
 
-function validateFormInput(formElement, inputElement, inputErrorClass) {
+function validateFormInput(
+  formElement,
+  inputElement,
+  inputErrorClass,
+  errorClass
+) {
   if (!inputElement.validity.valid) {
     showInputError(
       formElement,
       inputElement,
       inputElement.validationMessage,
-      inputErrorClass
+      inputErrorClass,
+      errorClass
     );
   } else {
-    hideInputError(formElement, inputElement, inputErrorClass);
+    hideInputError(formElement, inputElement, inputErrorClass, errorClass);
   }
-}
-
-// TODO: переписать под checkValidity
-function hasInvalidInput(inputList) {
-  return inputList.some((inputElement) => {
-    return !inputElement.validity.valid;
-  });
 }
 
 function disableButton(buttonElement, inactiveButtonClass) {
@@ -41,8 +48,8 @@ function disableButton(buttonElement, inactiveButtonClass) {
   buttonElement.setAttribute('disabled', true);
 }
 
-function toggleButtonState(inputList, buttonElement, inactiveButtonClass) {
-  if (hasInvalidInput(inputList)) {
+function toggleButtonState(formElement, buttonElement, inactiveButtonClass) {
+  if (!formElement.checkValidity()) {
     disableButton(buttonElement, inactiveButtonClass);
   } else {
     buttonElement.classList.remove(inactiveButtonClass);
@@ -55,19 +62,20 @@ function setEventListeners(
   inputSelector,
   submitButtonSelector,
   inactiveButtonClass,
-  inputErrorClass
+  inputErrorClass,
+  errorClass
 ) {
   const inputList = Array.from(formElement.querySelectorAll(inputSelector));
   const buttonElement = formElement.querySelector(submitButtonSelector);
-  toggleButtonState(inputList, buttonElement, inactiveButtonClass);
+  toggleButtonState(formElement, buttonElement, inactiveButtonClass);
   // сброс ошибок при открытии формы
   formElement.addEventListener('reset', () =>
     disableButton(buttonElement, inactiveButtonClass)
   );
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', () => {
-      validateFormInput(formElement, inputElement, inputErrorClass);
-      toggleButtonState(inputList, buttonElement, inactiveButtonClass);
+      validateFormInput(formElement, inputElement, inputErrorClass, errorClass);
+      toggleButtonState(formElement, buttonElement, inactiveButtonClass);
     });
   });
 }
@@ -78,6 +86,7 @@ function enableValidation({
   submitButtonSelector,
   inactiveButtonClass,
   inputErrorClass,
+  errorClass,
 }) {
   const forms = Array.from(document.querySelectorAll(formSelector));
   forms.forEach((formElement) => {
@@ -86,7 +95,8 @@ function enableValidation({
       inputSelector,
       submitButtonSelector,
       inactiveButtonClass,
-      inputErrorClass
+      inputErrorClass,
+      errorClass
     );
   });
 }

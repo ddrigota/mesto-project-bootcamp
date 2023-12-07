@@ -13,13 +13,17 @@ import { renderInitialPosts, handleAddFormSubmit } from './components/card.js';
 import { enableValidation } from './components/validate.js';
 
 // ИНИЦИАЛИЗАЦИЯ
-enableValidation({
+
+const validationSettings = {
   formSelector: '.form',
   inputSelector: '.form__text-input',
   submitButtonSelector: '.form__submit-button',
   inactiveButtonClass: 'form__submit-button_disabled',
   inputErrorClass: 'form__text-input_error',
-}); // включить валидацию форм
+  errorClass: 'form__error-message_visible',
+};
+
+enableValidation(validationSettings); // включить валидацию форм
 handleEditPopup(); // взаимодействие с формой редактирования профиля
 handleAddPopup(); // взаимодействие с формой добавления нового поста
 renderInitialPosts(); // отрисовка первоначальных постов
