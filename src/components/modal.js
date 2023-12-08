@@ -21,14 +21,6 @@ function handleEditPopup() {
   });
 }
 
-// отправка формы изменения персональных данных
-function handleEditFormSubmit(evt) {
-  evt.preventDefault();
-  displayName.textContent = username.value;
-  displayBio.textContent = bio.value;
-  closePopup(popupEditElement);
-}
-
 // открытие и закрытие окна "добавить новый пост"
 function handleAddPopup() {
   addButton.addEventListener('click', () => {
@@ -36,4 +28,4 @@ function handleAddPopup() {
   });
 }
 
-export { handleEditPopup, handleEditFormSubmit, handleAddPopup };
+export { handleEditPopup, handleAddPopup };

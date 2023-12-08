@@ -1,18 +1,30 @@
 import './pages/index.css';
 
-import { addForm, editForm } from './components/constants.js';
-
 import {
-  handleEditPopup,
-  handleEditFormSubmit,
-  handleAddPopup,
-} from './components/modal.js';
+  addForm,
+  editForm,
+  displayName,
+  displayBio,
+  addButton,
+  popupAddElement,
+  popupEditElement,
+} from './components/constants.js';
+
+import { handleEditPopup, handleAddPopup } from './components/modal.js';
 
 import { renderInitialPosts, handleAddFormSubmit } from './components/card.js';
-
+import { closePopup } from './components/utils.js';
 import { enableValidation } from './components/validate.js';
 
 // ИНИЦИАЛИЗАЦИЯ
+
+// отправка формы изменения персональных данных
+function handleEditFormSubmit(evt) {
+  evt.preventDefault();
+  displayName.textContent = username.value;
+  displayBio.textContent = bio.value;
+  closePopup(popupEditElement);
+}
 
 const validationSettings = {
   formSelector: '.form',
