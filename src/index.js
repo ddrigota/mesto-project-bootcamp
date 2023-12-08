@@ -7,14 +7,10 @@ import {
   displayBio,
   popupEditElement,
 } from './components/constants.js';
-
 import { handleEditPopup, handleAddPopup } from './components/modal.js';
-
 import { renderInitialPosts, handleAddFormSubmit } from './components/card.js';
 import { closePopup } from './components/utils.js';
 import { enableValidation } from './components/validate.js';
-
-// ИНИЦИАЛИЗАЦИЯ
 
 // отправка формы изменения персональных данных
 function handleEditFormSubmit(evt) {
@@ -24,6 +20,7 @@ function handleEditFormSubmit(evt) {
   closePopup(popupEditElement);
 }
 
+// настройки валидации
 const validationSettings = {
   formSelector: '.form',
   inputSelector: '.form__text-input',
@@ -33,6 +30,7 @@ const validationSettings = {
   errorClass: 'form__error-message_visible',
 };
 
+// ИНИЦИАЛИЗАЦИЯ
 enableValidation(validationSettings); // включить валидацию форм
 handleEditPopup(); // взаимодействие с формой редактирования профиля
 handleAddPopup(); // взаимодействие с формой добавления нового поста
