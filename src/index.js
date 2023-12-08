@@ -5,8 +5,6 @@ import {
   editForm,
   displayName,
   displayBio,
-  addButton,
-  popupAddElement,
   popupEditElement,
 } from './components/constants.js';
 
