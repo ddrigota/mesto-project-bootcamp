@@ -24,7 +24,11 @@ export function openPopup(popupElement) {
   document.addEventListener('click', handlePopupClick); // закрыть модальное окно по клику на оверлей или на кнопку закрытия
 }
 
-// TODO: разобраться с ошибками валидации при открытии окна
+/*
+TODO: разобраться с ошибками валидации при открытии окна
+TODO: разделить закрытие и сброс формы
+*/
+
 // закрыть модальное окно
 export function closePopup(popupElement) {
   popupElement.classList.remove('popup_opened');
