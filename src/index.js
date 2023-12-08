@@ -10,7 +10,7 @@ import {
 import { handleEditPopup, handleAddPopup } from './components/modal.js';
 import { renderInitialPosts, handleAddFormSubmit } from './components/card.js';
 import { closePopup } from './components/utils.js';
-import { enableValidation } from './components/validate.js';
+import { enableValidation, hideInputError } from './components/validate.js';
 
 // отправка формы изменения персональных данных
 function handleEditFormSubmit(evt) {
@@ -20,8 +20,22 @@ function handleEditFormSubmit(evt) {
   closePopup(popupEditElement);
 }
 
+export function resetFormErrors(formElement, validationSettings) {
+  const inputList = Array.from(
+    formElement.querySelectorAll(validationSettings.inputSelector)
+  );
+  inputList.forEach((inputElement) => {
+    hideInputError(
+      formElement,
+      inputElement,
+      validationSettings.inputErrorClass,
+      validationSettings.errorClass
+    );
+  });
+}
+
 // настройки валидации
-const validationSettings = {
+export const validationSettings = {
   formSelector: '.form',
   inputSelector: '.form__text-input',
   submitButtonSelector: '.form__submit-button',

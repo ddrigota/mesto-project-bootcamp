@@ -101,4 +101,4 @@ function enableValidation({
   });
 }
 
-export { enableValidation };
+export { enableValidation, hideInputError };
