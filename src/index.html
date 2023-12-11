@@ -18,7 +18,9 @@
     <main class="content">
       <section class="profile">
         <div class="profile__info">
-          <img src="<%=require('./images/profile-pic.png')%>" alt="аватар пользователя" class="profile__avatar">
+          <button class="profile__avatar-edit-button" type="button" aria-label="обновить аватар">
+            <img src="<%=require('./images/profile-pic.png')%>" alt="аватар пользователя" class="profile__avatar">
+          </button>
           <div class="profile__text">
             <div class="profile__name-container">
               <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -57,6 +59,19 @@
       </div>
     </div>
 
+    <div class="popup" id="popup-edit-avatar">
+      <div class="popup__modal">
+        <h2 class="popup__heading">Обновить аватар</h2>
+        <form name="avatar" class="form" method="post" novalidate autocomplete="off">
+          <input type="url" name="avatar" id="avatar" required placeholder="Ссылка на аватар" class="form__text-input"
+            minlength="2" maxlength="40" autocomplete="off">
+          <span class="avatar-error form__error-message"></span>
+          <button type="submit" class="form__submit-button">Сохранить</button>
+        </form>
+        <button class="popup__close-button" aria-label="закрыть окно" type="button"></button>
+      </div>
+    </div>
+
     <div class="popup" id="popup-add">
       <div class="popup__modal">
         <h2 class="popup__heading">Новое место</h2>
@@ -67,6 +82,16 @@
           <input type="url" name="link" id="link" required placeholder="Ссылка на картинку" class="form__text-input">
           <span class="link-error form__error-message"></span>
           <button type="submit" class="form__submit-button">Сохранить</button>
+        </form>
+        <button class="popup__close-button" aria-label="закрыть окно" type="button"></button>
+      </div>
+    </div>
+
+    <div class="popup" id="popup-delete-confirmation">
+      <div class="popup__modal">
+        <h2 class="popup__heading">Вы уверены?</h2>
+        <form name="delete-confirmation" class="form" method="post" novalidate>
+          <button type="submit" class="form__submit-button">Да</button>
         </form>
         <button class="popup__close-button" aria-label="закрыть окно" type="button"></button>
       </div>
@@ -87,7 +112,10 @@
         <img src="" alt="" class="post__image">
         <div class="post__description">
           <h2 class="post__text"></h2>
-          <button class="post__like-button" aria-label="поставить лайк"></button>
+          <div class="post__like-container">
+            <button class="post__like-button" aria-label="поставить лайк"></button>
+            <p class="post__like-counter">0</p>
+          </div>
         </div>
       </article>
       <button class="posts-grid__delete-button" aria-label="удалить пост"></button>
