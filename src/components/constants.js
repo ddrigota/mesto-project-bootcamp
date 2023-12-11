@@ -14,16 +14,15 @@ const bio = editForm.elements.bio;
 const avatarForm = document.forms.avatar;
 const avatar = avatarForm.elements.avatar;
 
-const deleteConfirmationPopup = document.querySelector(
-  '#popup-delete-confirmation'
-);
-
 // элементы создания нового поста
 const addButton = document.querySelector('.profile__add-button');
 const popupAddElement = document.querySelector('#popup-add');
 const addForm = document.forms.newpost;
 const caption = addForm.elements.caption;
 const link = addForm.elements.link;
+const deleteConfirmationPopup = document.querySelector(
+  '#popup-delete-confirmation'
+);
 
 // грид с постами
 const postsContainerElement = document.querySelector('.posts-grid__list');

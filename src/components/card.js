@@ -12,7 +12,14 @@ import {
 } from './constants.js';
 
 import { openPopup, closePopup, renderLoading } from './utils.js';
-import { addPost, getPosts, deletePost } from './api.js';
+import {
+  addPost,
+  getPosts,
+  deletePost,
+  likePost,
+  dislikePost,
+  myId,
+} from './api.js';
 
 // открытие и закрытие окна "добавить новый пост"
 function handleAddPopup() {
@@ -29,12 +36,19 @@ function createPostElement(card) {
 
   const postImage = postElement.querySelector('.post__image');
   const postText = postElement.querySelector('.post__text');
+  const postLikeCounter = postElement.querySelector('.post__like-counter');
 
   postImage.src = card.link;
   postImage.alt = card.name;
   postText.textContent = card.name;
+  postLikeCounter.textContent = card.likes.length;
+  postElement.id = card._id; // присваиваем элементу списка id поста
+  if (card.likes.some((like) => like._id === myId)) {
+    postElement
+      .querySelector('.post__like-button')
+      .classList.add('post__like-button_liked');
+  }
   postElement.addEventListener('click', handlePostEvents);
-  postElement.id = card._id;
   return postElement;
 }
 
@@ -44,7 +58,7 @@ function renderPosts() {
     data.forEach((card) => {
       const postElement = createPostElement(card);
       postsContainerElement.append(postElement);
-      if (card.owner._id === '86f8732160a3d589d063f4ea') {
+      if (card.owner._id === myId) {
         postElement
           .querySelector('.post__delete-button')
           .classList.add('post__delete-button_visible');
@@ -88,14 +102,54 @@ function handlePostDelete(postId) {
   });
 }
 
+// лайки и дизлайки
+
+function handlePostLike(evt, postId) {
+  evt.target.classList.add('post__like-button_liked');
+  likePost(postId)
+    .then((data) => {
+      const likeCounter = document
+        .getElementById(postId)
+        .querySelector('.post__like-counter');
+      likeCounter.textContent = data.likes.length;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+function handlePostDislike(evt, postId) {
+  evt.target.classList.remove('post__like-button_liked');
+  dislikePost(postId)
+    .then((data) => {
+      const likeCounter = document
+        .getElementById(postId)
+        .querySelector('.post__like-counter');
+      likeCounter.textContent = data.likes.length;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
 // превью, лайки и удаление поста
 function handlePostEvents(evt) {
-  if (evt.target.classList.contains('post__like-button')) {
+  const currentPostId = evt.target.closest('.posts-grid__list-item').id;
+  if (
+    evt.target.classList.contains('post__like-button') &&
+    !evt.target.classList.contains('post__like-button_liked')
+  ) {
     // лайки
-    evt.target.classList.toggle('post__like-button_liked');
+    handlePostLike(evt, currentPostId);
+  } else if (
+    evt.target.classList.contains('post__like-button') &&
+    evt.target.classList.contains('post__like-button_liked')
+  ) {
+    // дизлайки
+    handlePostDislike(evt, currentPostId);
   } else if (evt.target.classList.contains('post__delete-button')) {
     // удаление поста
-    handlePostDelete(evt.target.closest('.posts-grid__list-item').id);
+    handlePostDelete(currentPostId);
   } else if (evt.target.classList.contains('post__image')) {
     // превью картинки
     const image = evt.target;

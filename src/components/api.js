@@ -1,5 +1,6 @@
 const TOKEN = 'ee0956cc-88d8-4912-8bbc-58b6d84714ec';
 const URL = 'https://nomoreparties.co/v1/wbf-cohort-15';
+export const myId = '86f8732160a3d589d063f4ea';
 
 export function getUserInfo() {
   return fetch(`${URL}/users/me`, {
@@ -93,5 +94,33 @@ export function deletePost(postId) {
     if (!res.ok) {
       return Promise.reject(`Error: ${res.status}`);
     }
+  });
+}
+
+export function likePost(postId) {
+  return fetch(`${URL}/cards/likes/${postId}`, {
+    method: 'PUT',
+    headers: {
+      authorization: TOKEN,
+    },
+  }).then((res) => {
+    if (!res.ok) {
+      return Promise.reject(`Error: ${res.status}`);
+    }
+    return res.json();
+  });
+}
+
+export function dislikePost(postId) {
+  return fetch(`${URL}/cards/likes/${postId}`, {
+    method: 'DELETE',
+    headers: {
+      authorization: TOKEN,
+    },
+  }).then((res) => {
+    if (!res.ok) {
+      return Promise.reject(`Error: ${res.status}`);
+    }
+    return res.json();
   });
 }
