@@ -12,14 +12,7 @@ import {
 } from './constants.js';
 
 import { openPopup, closePopup, renderLoading } from './utils.js';
-import {
-  addPost,
-  getPosts,
-  deletePost,
-  likePost,
-  dislikePost,
-  myId,
-} from './api.js';
+import { addPost, deletePost, likePost, dislikePost, myId } from './api.js';
 
 // открытие и закрытие окна "добавить новый пост"
 function handleAddPopup() {
@@ -48,23 +41,13 @@ function createPostElement(card) {
       .querySelector('.post__like-button')
       .classList.add('post__like-button_liked');
   }
+  if (card.owner._id === myId) {
+    postElement
+      .querySelector('.post__delete-button')
+      .classList.add('post__delete-button_visible');
+  }
   postElement.addEventListener('click', handlePostEvents);
   return postElement;
-}
-
-// отрисовка первоначальных постов
-function renderPosts() {
-  getPosts().then((data) => {
-    data.forEach((card) => {
-      const postElement = createPostElement(card);
-      postsContainerElement.append(postElement);
-      if (card.owner._id === myId) {
-        postElement
-          .querySelector('.post__delete-button')
-          .classList.add('post__delete-button_visible');
-      }
-    });
-  });
 }
 
 // новый пост
@@ -75,61 +58,78 @@ function handleAddFormSubmit(evt) {
     .then((newPost) => {
       const postElement = createPostElement(newPost);
       postsContainerElement.prepend(postElement);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    .finally(() => {
-      renderLoading(false, popupAddElement);
       closePopup(popupAddElement);
       evt.target.reset();
+    })
+    .catch(console.error)
+    .finally(() => {
+      renderLoading(false, popupAddElement);
     });
 }
 
 // удаление поста
+// TODO: сейчас похоже на костыль, но вроде работает, если есть идеи, как сделать лучше, буду рад услышать (или просто удалю эту функциональность от греха подальше)
+let handleDeleteConfirmationSubmit = null; // хранит ссылку на функцию, которая удаляет пост
+
 function handlePostDelete(postId) {
   openPopup(deleteConfirmationPopup);
-  deleteConfirmationPopup.addEventListener('submit', (evt) => {
+
+  // удаляем слушатель сабмита, если он уже был назначен
+  if (handleDeleteConfirmationSubmit) {
+    deleteConfirmationPopup.removeEventListener(
+      'submit',
+      handleDeleteConfirmationSubmit
+    );
+  }
+
+  handleDeleteConfirmationSubmit = (evt) => {
     evt.preventDefault();
     deletePost(postId)
       .then(() => {
         document.getElementById(postId).remove();
         closePopup(deleteConfirmationPopup);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(console.error)
+      .finally(() => {
+        // удаляем слушатель сабмита, когда он отработал
+        deleteConfirmationPopup.removeEventListener(
+          'submit',
+          handleDeleteConfirmationSubmit
+        );
+        handleDeleteConfirmationSubmit = null; // обнуляем ссылку на функцию, которая удаляет пост
       });
-  });
+  };
+
+  deleteConfirmationPopup.addEventListener(
+    'submit',
+    handleDeleteConfirmationSubmit
+  );
 }
 
 // лайки и дизлайки
 
 function handlePostLike(evt, postId) {
-  evt.target.classList.add('post__like-button_liked');
   likePost(postId)
     .then((data) => {
+      evt.target.classList.add('post__like-button_liked');
       const likeCounter = document
         .getElementById(postId)
         .querySelector('.post__like-counter');
       likeCounter.textContent = data.likes.length;
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch(console.error);
 }
 
 function handlePostDislike(evt, postId) {
-  evt.target.classList.remove('post__like-button_liked');
   dislikePost(postId)
     .then((data) => {
+      evt.target.classList.remove('post__like-button_liked');
       const likeCounter = document
         .getElementById(postId)
         .querySelector('.post__like-counter');
       likeCounter.textContent = data.likes.length;
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch(console.error);
 }
 
 // превью, лайки и удаление поста
@@ -163,4 +163,4 @@ function handlePostEvents(evt) {
   }
 }
 
-export { handleAddPopup, renderPosts, handleAddFormSubmit };
+export { handleAddPopup, handleAddFormSubmit, createPostElement };

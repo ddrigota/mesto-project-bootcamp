@@ -1,3 +1,13 @@
+// настройки валидации
+const validationSettings = {
+  formSelector: '.form',
+  inputSelector: '.form__text-input',
+  submitButtonSelector: '.form__submit-button',
+  inactiveButtonClass: 'form__submit-button_disabled',
+  inputErrorClass: 'form__text-input_error',
+  errorClass: 'form__error-message_visible',
+};
+
 // валидация форм
 function showInputError(
   formElement,
@@ -101,4 +111,23 @@ function enableValidation({
   });
 }
 
-export { enableValidation, hideInputError };
+function resetFormErrors(formElement, validationSettings) {
+  const inputList = Array.from(
+    formElement.querySelectorAll(validationSettings.inputSelector)
+  );
+  inputList.forEach((inputElement) => {
+    hideInputError(
+      formElement,
+      inputElement,
+      validationSettings.inputErrorClass,
+      validationSettings.errorClass
+    );
+  });
+}
+
+export {
+  validationSettings,
+  enableValidation,
+  hideInputError,
+  resetFormErrors,
+};

@@ -1,126 +1,83 @@
-const TOKEN = 'ee0956cc-88d8-4912-8bbc-58b6d84714ec';
-const URL = 'https://nomoreparties.co/v1/wbf-cohort-15';
+// TODO: сделать и протестировать универсальную функцию запроса на сервер
+
+const config = {
+  baseUrl: 'https://nomoreparties.co/v1/wbf-cohort-15',
+  headers: {
+    authorization: 'ee0956cc-88d8-4912-8bbc-58b6d84714ec',
+    'Content-Type': 'application/json',
+  },
+};
+
 export const myId = '86f8732160a3d589d063f4ea';
 
-export function getUserInfo() {
-  return fetch(`${URL}/users/me`, {
-    headers: {
-      authorization: TOKEN,
-    },
-  }).then((res) => {
-    if (!res.ok) {
-      return Promise.reject(`Error: ${res.status}`);
-    }
+function checkResponse(res) {
+  if (res.ok) {
     return res.json();
-  });
+  }
+  return Promise.reject(`Error: ${res.status}`);
 }
 
-export function updateProfineInfo(name, about) {
-  return fetch(`${URL}/users/me`, {
+export function getUserInfo() {
+  return fetch(`${config.baseUrl}/users/me`, {
+    headers: config.headers,
+  }).then(checkResponse);
+}
+
+export function updateProfileInfo(name, about) {
+  return fetch(`${config.baseUrl}/users/me`, {
     method: 'PATCH',
-    headers: {
-      authorization: TOKEN,
-      'Content-Type': 'application/json',
-    },
+    headers: config.headers,
     body: JSON.stringify({
       name: name,
       about: about,
     }),
-  }).then((res) => {
-    if (!res.ok) {
-      return Promise.reject(`Error: ${res.status}`);
-    }
-    return res.json();
-  });
+  }).then(checkResponse);
 }
 
 export function updateAvatar(avatarLink) {
-  return fetch(`${URL}/users/me/avatar`, {
+  return fetch(`${config.baseUrl}/users/me/avatar`, {
     method: 'PATCH',
-    headers: {
-      authorization: TOKEN,
-      'Content-Type': 'application/json',
-    },
+    headers: config.headers,
     body: JSON.stringify({
       avatar: avatarLink,
     }),
-  }).then((res) => {
-    if (!res.ok) {
-      return Promise.reject(`Error: ${res.status}`);
-    }
-    return res.json();
-  });
+  }).then(checkResponse);
 }
 
 export function getPosts() {
-  return fetch(`${URL}/cards`, {
-    headers: {
-      authorization: TOKEN,
-    },
-  }).then((res) => {
-    if (!res.ok) {
-      return Promise.reject(`Error: ${res.status}`);
-    }
-    return res.json();
-  });
+  return fetch(`${config.baseUrl}/cards`, {
+    headers: config.headers,
+  }).then(checkResponse);
 }
 
 export function addPost(name, link) {
-  return fetch(`${URL}/cards`, {
+  return fetch(`${config.baseUrl}/cards`, {
     method: 'POST',
-    headers: {
-      authorization: TOKEN,
-      'Content-Type': 'application/json',
-    },
+    headers: config.headers,
     body: JSON.stringify({
       name: name,
       link: link,
     }),
-  }).then((res) => {
-    if (!res.ok) {
-      return Promise.reject(`Error: ${res.status}`);
-    }
-    return res.json();
-  });
+  }).then(checkResponse);
 }
 
 export function deletePost(postId) {
-  return fetch(`${URL}/cards/${postId}`, {
+  return fetch(`${config.baseUrl}/cards/${postId}`, {
     method: 'DELETE',
-    headers: {
-      authorization: TOKEN,
-    },
-  }).then((res) => {
-    if (!res.ok) {
-      return Promise.reject(`Error: ${res.status}`);
-    }
-  });
+    headers: config.headers,
+  }).then(checkResponse);
 }
 
 export function likePost(postId) {
-  return fetch(`${URL}/cards/likes/${postId}`, {
+  return fetch(`${config.baseUrl}/cards/likes/${postId}`, {
     method: 'PUT',
-    headers: {
-      authorization: TOKEN,
-    },
-  }).then((res) => {
-    if (!res.ok) {
-      return Promise.reject(`Error: ${res.status}`);
-    }
-    return res.json();
-  });
+    headers: config.headers,
+  }).then(checkResponse);
 }
 
 export function dislikePost(postId) {
-  return fetch(`${URL}/cards/likes/${postId}`, {
+  return fetch(`${config.baseUrl}/cards/likes/${postId}`, {
     method: 'DELETE',
-    headers: {
-      authorization: TOKEN,
-    },
-  }).then((res) => {
-    if (!res.ok) {
-      return Promise.reject(`Error: ${res.status}`);
-    }
-    return res.json();
-  });
+    headers: config.headers,
+  }).then(checkResponse);
 }

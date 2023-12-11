@@ -1,48 +1,44 @@
 import './pages/index.css';
 
-import { addForm, editForm, avatarForm } from './components/constants.js';
+import {
+  addForm,
+  editForm,
+  avatarForm,
+  postsContainerElement,
+} from './components/constants.js';
+
 import {
   handleEditPopup,
   handleEditFormSubmit,
   handleAvatarPopup,
   handleAvatarFormSubmit,
+  renderProfile,
 } from './components/profile.js';
+
 import {
   handleAddPopup,
-  renderPosts,
+  createPostElement,
   handleAddFormSubmit,
 } from './components/card.js';
-import { enableValidation, hideInputError } from './components/validate.js';
-import { renderInitialProfile } from './components/profile.js';
-// отправка формы изменения персональных данных
 
-export function resetFormErrors(formElement, validationSettings) {
-  const inputList = Array.from(
-    formElement.querySelectorAll(validationSettings.inputSelector)
-  );
-  inputList.forEach((inputElement) => {
-    hideInputError(
-      formElement,
-      inputElement,
-      validationSettings.inputErrorClass,
-      validationSettings.errorClass
-    );
-  });
+import { enableValidation, validationSettings } from './components/validate.js';
+
+import { getUserInfo, getPosts } from './components/api.js';
+
+function renderData() {
+  Promise.all([getUserInfo(), getPosts()])
+    .then(([userInfo, posts]) => {
+      renderProfile(userInfo);
+      posts.forEach((post) => {
+        const postElement = createPostElement(post);
+        postsContainerElement.append(postElement);
+      });
+    })
+    .catch(console.error);
 }
 
-// настройки валидации
-export const validationSettings = {
-  formSelector: '.form',
-  inputSelector: '.form__text-input',
-  submitButtonSelector: '.form__submit-button',
-  inactiveButtonClass: 'form__submit-button_disabled',
-  inputErrorClass: 'form__text-input_error',
-  errorClass: 'form__error-message_visible',
-};
-
 // ИНИЦИАЛИЗАЦИЯ
-renderInitialProfile(); // отрисовка первоначальных данных профиля
-renderPosts(); // отрисовка первоначальных постов
+renderData(); // отрисовать данные пользователя и посты
 handleEditPopup(); // взаимодействие с формой редактирования профиля
 handleAddPopup(); // взаимодействие с формой добавления нового поста
 handleAvatarPopup(); // взаимодействие с формой изменения аватара

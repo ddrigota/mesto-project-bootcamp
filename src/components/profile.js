@@ -13,21 +13,10 @@ import {
 } from './constants.js';
 
 import { openPopup, closePopup, renderLoading } from './utils.js';
-import { resetFormErrors, validationSettings } from '../index.js';
+import { resetFormErrors, validationSettings } from './validate.js';
+import { updateProfileInfo, updateAvatar } from './api.js';
 
-import { getUserInfo, updateProfineInfo, updateAvatar } from './api.js';
-
-export function renderInitialProfile() {
-  getUserInfo()
-    .then((data) => {
-      renderProfile(data);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
-
-function renderProfile(data) {
+export function renderProfile(data) {
   displayName.textContent = data.name;
   displayBio.textContent = data.about;
   displayAvatar.src = data.avatar;
@@ -46,17 +35,15 @@ export function handleEditPopup() {
 export function handleEditFormSubmit(evt) {
   evt.preventDefault();
   renderLoading(true, popupEditElement);
-  updateProfineInfo(username.value, bio.value)
+  updateProfileInfo(username.value, bio.value)
     .then((data) => {
       renderProfile(data);
+      closePopup(popupEditElement); // Move this line here
     })
-    .catch((err) => {
-      console.log(err);
-    })
+    .catch(console.error)
     .finally(() => {
       renderLoading(false, popupEditElement);
     });
-  closePopup(popupEditElement);
 }
 
 export function handleAvatarPopup() {
@@ -72,13 +59,10 @@ export function handleAvatarFormSubmit(evt) {
   updateAvatar(avatar.value)
     .then((data) => {
       renderProfile(data);
+      closePopup(popupAvatarElement); // Move this line here
     })
-    .catch((err) => {
-      console.log(err);
-    })
+    .catch(console.error)
     .finally(() => {
       renderLoading(false, popupAvatarElement);
     });
-
-  closePopup(popupAvatarElement);
 }
