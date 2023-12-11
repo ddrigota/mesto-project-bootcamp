@@ -69,7 +69,7 @@ function handleAddFormSubmit(evt) {
 
 // удаление поста
 // TODO: сейчас похоже на костыль, но вроде работает, если есть идеи, как сделать лучше, буду рад услышать (или просто удалю эту функциональность от греха подальше)
-let handleDeleteConfirmationSubmit = null; // хранит ссылку на функцию, которая удаляет пост
+let handleDeleteConfirmationSubmit = null; // хранит ссылку на функцию, которая удаляет пост. Если функция не пустая, то слушатель сабмита уже где-то назначен
 
 function handlePostDelete(postId) {
   openPopup(deleteConfirmationPopup);
@@ -81,7 +81,7 @@ function handlePostDelete(postId) {
       handleDeleteConfirmationSubmit
     );
   }
-
+  // переназначаем функцию
   handleDeleteConfirmationSubmit = (evt) => {
     evt.preventDefault();
     deletePost(postId)
