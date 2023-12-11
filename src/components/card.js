@@ -7,9 +7,17 @@ import {
   popupImage,
   popupImageElement,
   popupImageCaption,
+  addButton,
 } from './constants.js';
 
 import { openPopup, closePopup } from './utils.js';
+
+// открытие и закрытие окна "добавить новый пост"
+function handleAddPopup() {
+  addButton.addEventListener('click', () => {
+    openPopup(popupAddElement);
+  });
+}
 
 // создание новго поста
 function createPostElement(card) {
@@ -94,4 +102,4 @@ function handlePostEvents(evt) {
   }
 }
 
-export { renderInitialPosts, handleAddFormSubmit };
+export { handleAddPopup, renderInitialPosts, handleAddFormSubmit };

@@ -1,14 +1,17 @@
 import './pages/index.css';
 
 import { addForm, editForm, avatarForm } from './components/constants.js';
-import { handleAddPopup } from './components/modal.js';
 import {
   handleEditPopup,
   handleEditFormSubmit,
   handleAvatarPopup,
   handleAvatarFormSubmit,
 } from './components/profile.js';
-import { renderInitialPosts, handleAddFormSubmit } from './components/card.js';
+import {
+  handleAddPopup,
+  renderInitialPosts,
+  handleAddFormSubmit,
+} from './components/card.js';
 import { enableValidation, hideInputError } from './components/validate.js';
 import { renderInitialProfile } from './components/profile.js';
 // отправка формы изменения персональных данных

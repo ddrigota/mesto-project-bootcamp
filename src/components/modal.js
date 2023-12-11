@@ -1,13 +1,4 @@
-import { addButton, popupAddElement } from './constants.js';
-
-import { openPopup, closePopup } from './utils.js';
-
-// открытие и закрытие окна "добавить новый пост"
-function handleAddPopup() {
-  addButton.addEventListener('click', () => {
-    openPopup(popupAddElement);
-  });
-}
+import { closePopup } from './utils.js';
 
 // закрыть модальное окно по клику на оверлей или на кнопку закрытия
 function handlePopupClick(evt) {
@@ -28,4 +19,4 @@ function handlePopupEsc(evt) {
   }
 }
 
-export { handleAddPopup, handlePopupClick, handlePopupEsc };
+export { handlePopupClick, handlePopupEsc };
