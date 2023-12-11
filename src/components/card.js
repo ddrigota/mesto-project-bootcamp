@@ -69,19 +69,21 @@ function handleAddFormSubmit(evt) {
 
 // удаление поста
 // TODO: сейчас похоже на костыль, но вроде работает, если есть идеи, как сделать лучше, буду рад услышать (или просто удалю эту функциональность от греха подальше)
-let handleDeleteConfirmationSubmit = null; // хранит ссылку на функцию, которая удаляет пост. Если функция не пустая, то слушатель сабмита уже где-то назначен
+let handleDeleteConfirmationSubmit = null; // храним состояние функции в переменной, чтобы потом можно было её удалить
 
-function handlePostDelete(postId) {
-  openPopup(deleteConfirmationPopup);
-
-  // удаляем слушатель сабмита, если он уже был назначен
+function removeDeleteConfirmationSubmit() {
+  // если обработчик уже назначен -- удаляем его
   if (handleDeleteConfirmationSubmit) {
     deleteConfirmationPopup.removeEventListener(
       'submit',
       handleDeleteConfirmationSubmit
     );
+    handleDeleteConfirmationSubmit = null;
   }
-  // переназначаем функцию
+}
+
+function addDeleteConfirmationSubmit(postId) {
+  // в противном случае добавляем обработчик и удаляем пост
   handleDeleteConfirmationSubmit = (evt) => {
     evt.preventDefault();
     deletePost(postId)
@@ -89,15 +91,10 @@ function handlePostDelete(postId) {
         document.getElementById(postId).remove();
         closePopup(deleteConfirmationPopup);
       })
-      .catch(console.error)
-      .finally(() => {
-        // удаляем слушатель сабмита, когда он отработал
-        deleteConfirmationPopup.removeEventListener(
-          'submit',
-          handleDeleteConfirmationSubmit
-        );
-        handleDeleteConfirmationSubmit = null; // обнуляем ссылку на функцию, которая удаляет пост
-      });
+      .catch((error) => {
+        console.error(error);
+      })
+      .finally(removeDeleteConfirmationSubmit); // сбрасываем функцию после выполнения
   };
 
   deleteConfirmationPopup.addEventListener(
@@ -106,8 +103,13 @@ function handlePostDelete(postId) {
   );
 }
 
-// лайки и дизлайки
+function handlePostDelete(postId) {
+  openPopup(deleteConfirmationPopup);
+  removeDeleteConfirmationSubmit();
+  addDeleteConfirmationSubmit(postId);
+}
 
+// лайки и дизлайки
 function handlePostLike(evt, postId) {
   likePost(postId)
     .then((data) => {
