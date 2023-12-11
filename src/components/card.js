@@ -8,6 +8,7 @@ import {
   popupImageElement,
   popupImageCaption,
   addButton,
+  deleteConfirmationPopup,
 } from './constants.js';
 
 import { openPopup, closePopup, renderLoading } from './utils.js';
@@ -71,14 +72,20 @@ function handleAddFormSubmit(evt) {
     });
 }
 
+// удаление поста
 function handlePostDelete(postId) {
-  deletePost(postId)
-    .then(() => {
-      document.getElementById(postId).remove();
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  openPopup(deleteConfirmationPopup);
+  deleteConfirmationPopup.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    deletePost(postId)
+      .then(() => {
+        document.getElementById(postId).remove();
+        closePopup(deleteConfirmationPopup);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
 }
 
 // превью, лайки и удаление поста
