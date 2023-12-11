@@ -6,11 +6,12 @@ export function getUserInfo() {
     headers: {
       authorization: TOKEN,
     },
-  })
-    .then((res) => res.json())
-    .catch((err) => {
-      console.log(err);
-    });
+  }).then((res) => {
+    if (!res.ok) {
+      return Promise.reject(`Error: ${res.status}`);
+    }
+    return res.json();
+  });
 }
 
 export function updateProfineInfo(name, about) {
