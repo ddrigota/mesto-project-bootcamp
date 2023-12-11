@@ -1,5 +1,3 @@
-// TODO: сделать и протестировать универсальную функцию запроса на сервер
-
 const config = {
   baseUrl: 'https://nomoreparties.co/v1/wbf-cohort-15',
   headers: {
@@ -17,67 +15,51 @@ function checkResponse(res) {
   return Promise.reject(`Error: ${res.status}`);
 }
 
-export function getUserInfo() {
-  return fetch(`${config.baseUrl}/users/me`, {
+// я пока не добавлял baseUrl в fetch, на мой взгляд, так читабельнее
+function request(url, method, body) {
+  return fetch(url, {
+    method: method,
     headers: config.headers,
+    body: JSON.stringify(body),
   }).then(checkResponse);
+}
+
+export function getUserInfo() {
+  return request(`${config.baseUrl}/users/me`, 'GET');
 }
 
 export function updateProfileInfo(name, about) {
-  return fetch(`${config.baseUrl}/users/me`, {
-    method: 'PATCH',
-    headers: config.headers,
-    body: JSON.stringify({
-      name: name,
-      about: about,
-    }),
-  }).then(checkResponse);
+  return request(`${config.baseUrl}/users/me`, 'PATCH', {
+    name: name,
+    about: about,
+  });
 }
 
 export function updateAvatar(avatarLink) {
-  return fetch(`${config.baseUrl}/users/me/avatar`, {
-    method: 'PATCH',
-    headers: config.headers,
-    body: JSON.stringify({
-      avatar: avatarLink,
-    }),
-  }).then(checkResponse);
+  return request(`${config.baseUrl}/users/me/avatar`, 'PATCH', {
+    avatar: avatarLink,
+  });
 }
 
 export function getPosts() {
-  return fetch(`${config.baseUrl}/cards`, {
-    headers: config.headers,
-  }).then(checkResponse);
+  return request(`${config.baseUrl}/cards`, 'GET');
 }
 
 export function addPost(name, link) {
-  return fetch(`${config.baseUrl}/cards`, {
-    method: 'POST',
-    headers: config.headers,
-    body: JSON.stringify({
-      name: name,
-      link: link,
-    }),
-  }).then(checkResponse);
+  return request(`${config.baseUrl}/cards`, 'POST', {
+    name: name,
+    link: link,
+  });
 }
 
 export function deletePost(postId) {
-  return fetch(`${config.baseUrl}/cards/${postId}`, {
-    method: 'DELETE',
-    headers: config.headers,
-  }).then(checkResponse);
+  return request(`${config.baseUrl}/cards/${postId}`, 'DELETE');
 }
 
 export function likePost(postId) {
-  return fetch(`${config.baseUrl}/cards/likes/${postId}`, {
-    method: 'PUT',
-    headers: config.headers,
-  }).then(checkResponse);
+  return request(`${config.baseUrl}/cards/likes/${postId}`, 'PUT');
 }
 
 export function dislikePost(postId) {
-  return fetch(`${config.baseUrl}/cards/likes/${postId}`, {
-    method: 'DELETE',
-    headers: config.headers,
-  }).then(checkResponse);
+  return request(`${config.baseUrl}/cards/likes/${postId}`, 'DELETE');
 }
