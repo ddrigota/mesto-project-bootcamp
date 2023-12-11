@@ -3,5 +3,6 @@
   height: 120px;
   border-radius: 50%;
   position: relative;
+  object-fit: cover;
   z-index: -1;
 }

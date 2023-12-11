@@ -1,24 +1,17 @@
 import './pages/index.css';
 
+import { addForm, editForm, avatarForm } from './components/constants.js';
+import { handleAddPopup } from './components/modal.js';
 import {
-  addForm,
-  editForm,
-  displayName,
-  displayBio,
-  popupEditElement,
-} from './components/constants.js';
-import { handleEditPopup, handleAddPopup } from './components/modal.js';
+  handleEditPopup,
+  handleEditFormSubmit,
+  handleAvatarPopup,
+  handleAvatarFormSubmit,
+} from './components/profile.js';
 import { renderInitialPosts, handleAddFormSubmit } from './components/card.js';
-import { closePopup } from './components/utils.js';
 import { enableValidation, hideInputError } from './components/validate.js';
-
+import { renderInitialProfile } from './components/profile.js';
 // отправка формы изменения персональных данных
-function handleEditFormSubmit(evt) {
-  evt.preventDefault();
-  displayName.textContent = username.value;
-  displayBio.textContent = bio.value;
-  closePopup(popupEditElement);
-}
 
 export function resetFormErrors(formElement, validationSettings) {
   const inputList = Array.from(
@@ -45,11 +38,14 @@ export const validationSettings = {
 };
 
 // ИНИЦИАЛИЗАЦИЯ
+renderInitialProfile(); // отрисовка первоначальных данных профиля
 enableValidation(validationSettings); // включить валидацию форм
 handleEditPopup(); // взаимодействие с формой редактирования профиля
 handleAddPopup(); // взаимодействие с формой добавления нового поста
+handleAvatarPopup(); // взаимодействие с формой изменения аватара
 renderInitialPosts(); // отрисовка первоначальных постов
 
 // EVENT LISTENERS
 addForm.addEventListener('submit', handleAddFormSubmit); // отправка формы добавления нового поста
 editForm.addEventListener('submit', handleEditFormSubmit); // отправка формы изменения персональных данных
+avatarForm.addEventListener('submit', handleAvatarFormSubmit); // отправка формы изменения аватара

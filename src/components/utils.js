@@ -13,3 +13,12 @@ export function closePopup(popupElement) {
   document.removeEventListener('keydown', handlePopupEsc); // закрыть модальное окно по нажатию на Esc
   document.removeEventListener('click', handlePopupClick); // закрыть модальное окно по клику на оверлей или на кнопку закрытия
 }
+
+export function renderLoading(isLoading, popupElement) {
+  const submitButton = popupElement.querySelector('.form__submit-button');
+  if (isLoading) {
+    submitButton.textContent = 'Сохранение...';
+  } else {
+    submitButton.textContent = 'Сохранить';
+  }
+}

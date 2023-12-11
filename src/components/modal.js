@@ -1,27 +1,6 @@
-import {
-  profileEditButton,
-  popupEditElement,
-  username,
-  displayName,
-  displayBio,
-  bio,
-  addButton,
-  popupAddElement,
-} from './constants.js';
+import { addButton, popupAddElement } from './constants.js';
 
 import { openPopup, closePopup } from './utils.js';
-import { resetFormErrors, validationSettings } from '../index.js';
-
-// взаимодействие с формой редактирования профиля
-function handleEditPopup(hideInputError) {
-  profileEditButton.addEventListener('click', () => {
-    openPopup(popupEditElement);
-    resetFormErrors(popupEditElement, validationSettings); // очистить ошибки формы при открытии
-    // заполнить поля текущими данными
-    username.value = displayName.textContent;
-    bio.value = displayBio.textContent;
-  });
-}
 
 // открытие и закрытие окна "добавить новый пост"
 function handleAddPopup() {
@@ -49,4 +28,4 @@ function handlePopupEsc(evt) {
   }
 }
 
-export { handleEditPopup, handleAddPopup, handlePopupClick, handlePopupEsc };
+export { handleAddPopup, handlePopupClick, handlePopupEsc };
