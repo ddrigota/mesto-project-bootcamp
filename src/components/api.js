@@ -82,3 +82,16 @@ export function addPost(name, link) {
     return res.json();
   });
 }
+
+export function deletePost(postId) {
+  return fetch(`${URL}/cards/${postId}`, {
+    method: 'DELETE',
+    headers: {
+      authorization: TOKEN,
+    },
+  }).then((res) => {
+    if (!res.ok) {
+      return Promise.reject(`Error: ${res.status}`);
+    }
+  });
+}

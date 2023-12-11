@@ -11,7 +11,7 @@ import {
 } from './constants.js';
 
 import { openPopup, closePopup, renderLoading } from './utils.js';
-import { addPost, getPosts } from './api.js';
+import { addPost, getPosts, deletePost } from './api.js';
 
 // открытие и закрытие окна "добавить новый пост"
 function handleAddPopup() {
@@ -33,15 +33,21 @@ function createPostElement(card) {
   postImage.alt = card.name;
   postText.textContent = card.name;
   postElement.addEventListener('click', handlePostEvents);
+  postElement.id = card._id;
   return postElement;
 }
 
 // отрисовка первоначальных постов
-function renderInitialPosts() {
+function renderPosts() {
   getPosts().then((data) => {
     data.forEach((card) => {
       const postElement = createPostElement(card);
       postsContainerElement.append(postElement);
+      if (card.owner._id === '86f8732160a3d589d063f4ea') {
+        postElement
+          .querySelector('.post__delete-button')
+          .classList.add('post__delete-button_visible');
+      }
     });
   });
 }
@@ -65,14 +71,24 @@ function handleAddFormSubmit(evt) {
     });
 }
 
+function handlePostDelete(postId) {
+  deletePost(postId)
+    .then(() => {
+      document.getElementById(postId).remove();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
 // превью, лайки и удаление поста
 function handlePostEvents(evt) {
   if (evt.target.classList.contains('post__like-button')) {
     // лайки
     evt.target.classList.toggle('post__like-button_liked');
-  } else if (evt.target.classList.contains('posts-grid__delete-button')) {
+  } else if (evt.target.classList.contains('post__delete-button')) {
     // удаление поста
-    evt.target.closest('.posts-grid__list-item').remove();
+    handlePostDelete(evt.target.closest('.posts-grid__list-item').id);
   } else if (evt.target.classList.contains('post__image')) {
     // превью картинки
     const image = evt.target;
@@ -86,4 +102,4 @@ function handlePostEvents(evt) {
   }
 }
 
-export { handleAddPopup, renderInitialPosts, handleAddFormSubmit };
+export { handleAddPopup, renderPosts, handleAddFormSubmit };

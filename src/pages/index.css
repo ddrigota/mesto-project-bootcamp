@@ -30,7 +30,6 @@
 @import url('../blocks/posts-grid/posts-grid.css');
 @import url('../blocks/posts-grid/__list/posts-grid__list.css');
 @import url('../blocks/posts-grid/__list-item/posts-grid__list-item.css');
-@import url('../blocks/posts-grid/__delete-button/posts-grid__delete-button.css');
 
 /* POST */
 @import url('../blocks/post/post.css');
@@ -41,6 +40,8 @@
 @import url('../blocks/post/__like-button/_liked/post__like-button_liked.css');
 @import url('../blocks/post/__like-container/post__like-container.css');
 @import url('../blocks/post/__like-counter/post__like-counter.css');
+@import url('../blocks/post/__delete-button/post__delete-button.css');
+@import url('../blocks/post/__delete-button/_visible/post__delete-button_visible.css');
 
 /* FOOTER */
 @import url('../blocks/footer/footer.css');

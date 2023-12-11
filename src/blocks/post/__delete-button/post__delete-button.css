@@ -1,4 +1,4 @@
-.posts-grid__delete-button {
+.post__delete-button {
   position: absolute;
   top: 20px;
   right: 20px;
@@ -9,6 +9,7 @@
   background: url('../../../images/delete-button.svg') no-repeat center;
   transition: opacity var(--transition-time) ease;
   cursor: pointer;
+  display: none;
 }
 .posts-grid__delete-button:hover {
   opacity: 0.5;

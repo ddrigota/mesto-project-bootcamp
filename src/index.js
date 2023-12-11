@@ -9,7 +9,7 @@ import {
 } from './components/profile.js';
 import {
   handleAddPopup,
-  renderInitialPosts,
+  renderPosts,
   handleAddFormSubmit,
 } from './components/card.js';
 import { enableValidation, hideInputError } from './components/validate.js';
@@ -42,7 +42,7 @@ export const validationSettings = {
 
 // ИНИЦИАЛИЗАЦИЯ
 renderInitialProfile(); // отрисовка первоначальных данных профиля
-renderInitialPosts(); // отрисовка первоначальных постов
+renderPosts(); // отрисовка первоначальных постов
 handleEditPopup(); // взаимодействие с формой редактирования профиля
 handleAddPopup(); // взаимодействие с формой добавления нового поста
 handleAvatarPopup(); // взаимодействие с формой изменения аватара
