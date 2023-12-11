@@ -10,7 +10,8 @@ import {
   addButton,
 } from './constants.js';
 
-import { openPopup, closePopup } from './utils.js';
+import { openPopup, closePopup, renderLoading } from './utils.js';
+import { addPost, getPosts } from './api.js';
 
 // открытие и закрытие окна "добавить новый пост"
 function handleAddPopup() {
@@ -37,51 +38,34 @@ function createPostElement(card) {
 
 // отрисовка первоначальных постов
 function renderInitialPosts() {
-  const initialCards = [
-    {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
-    },
-    {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
-    },
-    {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
-    },
-    {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
-    },
-    {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
-    },
-    {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
-    },
-  ];
-
-  initialCards.forEach((card) => {
-    const postElement = createPostElement(card);
-    postsContainerElement.append(postElement);
+  getPosts().then((data) => {
+    data.forEach((card) => {
+      const postElement = createPostElement(card);
+      postsContainerElement.append(postElement);
+    });
   });
 }
 
 // новый пост
 function handleAddFormSubmit(evt) {
   evt.preventDefault();
-  const newPost = { name: caption.value, link: link.value };
-  closePopup(popupAddElement);
-  const postElement = createPostElement(newPost);
-  postsContainerElement.prepend(postElement);
-  evt.target.reset();
+  renderLoading(true, popupAddElement);
+  addPost(caption.value, link.value)
+    .then((newPost) => {
+      const postElement = createPostElement(newPost);
+      postsContainerElement.prepend(postElement);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      renderLoading(false, popupAddElement);
+      closePopup(popupAddElement);
+      evt.target.reset();
+    });
 }
 
 // превью, лайки и удаление поста
-
 function handlePostEvents(evt) {
   if (evt.target.classList.contains('post__like-button')) {
     // лайки

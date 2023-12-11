@@ -50,3 +50,35 @@ export function updateAvatar(avatarLink) {
     return res.json();
   });
 }
+
+export function getPosts() {
+  return fetch(`${URL}/cards`, {
+    headers: {
+      authorization: TOKEN,
+    },
+  }).then((res) => {
+    if (!res.ok) {
+      return Promise.reject(`Error: ${res.status}`);
+    }
+    return res.json();
+  });
+}
+
+export function addPost(name, link) {
+  return fetch(`${URL}/cards`, {
+    method: 'POST',
+    headers: {
+      authorization: TOKEN,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name: name,
+      link: link,
+    }),
+  }).then((res) => {
+    if (!res.ok) {
+      return Promise.reject(`Error: ${res.status}`);
+    }
+    return res.json();
+  });
+}

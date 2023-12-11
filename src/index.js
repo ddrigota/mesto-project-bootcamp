@@ -42,11 +42,11 @@ export const validationSettings = {
 
 // ИНИЦИАЛИЗАЦИЯ
 renderInitialProfile(); // отрисовка первоначальных данных профиля
-enableValidation(validationSettings); // включить валидацию форм
+renderInitialPosts(); // отрисовка первоначальных постов
 handleEditPopup(); // взаимодействие с формой редактирования профиля
 handleAddPopup(); // взаимодействие с формой добавления нового поста
 handleAvatarPopup(); // взаимодействие с формой изменения аватара
-renderInitialPosts(); // отрисовка первоначальных постов
+enableValidation(validationSettings); // включить валидацию форм
 
 // EVENT LISTENERS
 addForm.addEventListener('submit', handleAddFormSubmit); // отправка формы добавления нового поста
