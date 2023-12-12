@@ -27,12 +27,6 @@ import { getUserInfo, getPosts } from './components/api.js';
 
 let myId;
 
-getUserInfo()
-  .then((data) => {
-    myId = data._id;
-  })
-  .catch(console.error);
-
 function renderData() {
   Promise.all([getUserInfo(), getPosts()])
     .then(([userInfo, posts]) => {
