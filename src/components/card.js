@@ -22,7 +22,7 @@ function handleAddPopup() {
 }
 
 // создание новго поста
-function createPostElement(card) {
+function createPostElement(card, myId) {
   const postElement = postTemplate
     .querySelector('.posts-grid__list-item')
     .cloneNode(true);

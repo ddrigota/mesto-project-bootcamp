@@ -6,8 +6,6 @@ const config = {
   },
 };
 
-export const myId = '86f8732160a3d589d063f4ea';
-
 function checkResponse(res) {
   if (res.ok) {
     return res.json();

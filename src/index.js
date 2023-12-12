@@ -25,12 +25,21 @@ import { enableValidation, validationSettings } from './components/validate.js';
 
 import { getUserInfo, getPosts } from './components/api.js';
 
+let myId;
+
+getUserInfo()
+  .then((data) => {
+    myId = data._id;
+  })
+  .catch(console.error);
+
 function renderData() {
   Promise.all([getUserInfo(), getPosts()])
     .then(([userInfo, posts]) => {
+      myId = userInfo._id;
       renderProfile(userInfo);
       posts.forEach((post) => {
-        const postElement = createPostElement(post);
+        const postElement = createPostElement(post, myId);
         postsContainerElement.append(postElement);
       });
     })
