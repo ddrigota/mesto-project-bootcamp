@@ -56,7 +56,7 @@ function handleAddFormSubmit(evt) {
   renderLoading(true, popupAddElement);
   addPost(caption.value, link.value)
     .then((newPost) => {
-      const postElement = createPostElement(newPost);
+      const postElement = createPostElement(newPost, newPost.owner._id);
       postsContainerElement.prepend(postElement);
       closePopup(popupAddElement);
       evt.target.reset();
